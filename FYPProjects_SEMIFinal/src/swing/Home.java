@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ import jpcap.packet.Packet;
 import jpcap.packet.TCPPacket;
 import jpcap.packet.UDPPacket;
 import javax.swing.table.TableRowSorter;
+import java.util.Date;
 /**
  *
  * @author Admin
@@ -72,7 +74,7 @@ public class Home extends javax.swing.JFrame {
     static double darp = 0;
     static double dGuangBo = 0;
     static int No = 0;
-
+    static int RuleNo = 0;
     List<String> srcIPSet = new ArrayList<>();
     List<String> destIPSet = new ArrayList<>();
     List<String> UnknownIPSet = new ArrayList<>();
@@ -1948,19 +1950,24 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-
+        String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date()); 
+        
         Vector rulesVector = new Vector();
         if (jTextField1.getText() != ""
                 && jTextField5.getText() != ""
                 && jTextField6.getText() != ""
                 && jTextField7.getText() != "") {
+            RuleNo++;
+            rulesVector.addElement(RuleNo);
             rulesVector.addElement(jTextField1.getText());
             rulesVector.addElement(jComboBox2.getSelectedItem());
             rulesVector.addElement(jComboBox3.getSelectedItem());
             rulesVector.addElement(jTextField5.getText());
             rulesVector.addElement(jTextField6.getText());
             rulesVector.addElement(jComboBox4.getSelectedItem());
+            rulesVector.addElement(jTextField8.getText());
             rulesVector.addElement(jTextField7.getText());
+            rulesVector.addElement(timeStamp.toString());
             nRules++;
             
         } else {
@@ -2018,14 +2025,15 @@ public class Home extends javax.swing.JFrame {
         public void receivePacket(Packet packet) {
             try {
                 Vector r = new Vector();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date()); 
                 No++;
                 if (packet instanceof TCPPacket) {
                     ctcp++;
                     tcp_num.setText(String.valueOf(ctcp));
                     tcp = (TCPPacket) packet;
                     r.addElement(No);
-                    Timestamp timestamp = new Timestamp((packet.sec * 1000) + (packet.usec / 1000));
-                    r.addElement(timestamp.toString());
+                    
+                    r.addElement(timeStamp.toString());
                     r.addElement(tcp.src_ip.toString());
                     r.addElement(tcp.dst_ip.toString());
                     if (tcp.dst_ip.toString().equals("255.255.255.255")) {
@@ -2044,8 +2052,7 @@ public class Home extends javax.swing.JFrame {
 
                     udp = (UDPPacket) packet;
                     r.addElement(No);
-                    Timestamp timestamp = new Timestamp((packet.sec * 1000) + (packet.usec / 1000));
-                    r.addElement(timestamp.toString());
+                    r.addElement(timeStamp.toString());
                     r.addElement(udp.src_ip.toString());
                     r.addElement(udp.dst_ip.toString());
                     if (udp.dst_ip.toString().equals("255.255.255.255")) {
@@ -2063,8 +2070,7 @@ public class Home extends javax.swing.JFrame {
                     ICMP_num.setText(String.valueOf(cicmp));
                     icmp = (ICMPPacket) packet;
                     r.addElement(No);
-                    Timestamp timestamp = new Timestamp((packet.sec * 1000) + (packet.usec / 1000));
-                    r.addElement(timestamp.toString());
+                    r.addElement(timeStamp.toString());
                     r.addElement(icmp.src_ip.toString());
                     r.addElement(icmp.dst_ip.toString());
                     if (icmp.dst_ip.toString().equals("255.255.255.255")) {
@@ -2197,7 +2203,7 @@ public class Home extends javax.swing.JFrame {
         RuleColumns.addElement("Wireless Card");
         RuleColumns.addElement("Protocol");
         RuleColumns.addElement("IP Number");
-        RuleColumns.addElement("Duration");
+        RuleColumns.addElement("Port Number");
         RuleColumns.addElement("Actions");
         RuleColumns.addElement("Attempts");
         RuleColumns.addElement("Description");
@@ -2210,15 +2216,15 @@ public class Home extends javax.swing.JFrame {
         
         tabledisplayRules.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabledisplayRules.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tabledisplayRules.getColumnModel().getColumn(1).setPreferredWidth(80);
-        tabledisplayRules.getColumnModel().getColumn(2).setPreferredWidth(160);
+        tabledisplayRules.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tabledisplayRules.getColumnModel().getColumn(2).setPreferredWidth(150);
         tabledisplayRules.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tabledisplayRules.getColumnModel().getColumn(4).setPreferredWidth(80);
-        tabledisplayRules.getColumnModel().getColumn(5).setPreferredWidth(80);
+        tabledisplayRules.getColumnModel().getColumn(4).setPreferredWidth(120);
+        tabledisplayRules.getColumnModel().getColumn(5).setPreferredWidth(120);
         tabledisplayRules.getColumnModel().getColumn(6).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(7).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(8).setPreferredWidth(160);
-        tabledisplayRules.getColumnModel().getColumn(9).setPreferredWidth(200);
+        tabledisplayRules.getColumnModel().getColumn(9).setPreferredWidth(150);
         
         jPanel4.add(new JScrollPane(tabledisplayRules), BorderLayout.CENTER);
     }

@@ -1,0 +1,1 @@
+Rule Name	Wireless Card	Actions	Protocol	IP Number	Duration	Description:	

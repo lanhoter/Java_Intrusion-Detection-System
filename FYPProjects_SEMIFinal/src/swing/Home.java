@@ -41,8 +41,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -97,9 +99,8 @@ public class Home extends javax.swing.JFrame {
     private JPanel jPanel91;
     private JLabel jLabel91;
     private JPanel jPanel92;
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    JFreeChart barChart = ChartFactory.createBarChart("Packets Count", "Packet Data Type", "Volume", dataset,
-            PlotOrientation.HORIZONTAL, true, true, false);
+    DefaultPieDataset dataset = new DefaultPieDataset();
+    JFreeChart pieChart = ChartFactory.createPieChart("Packets Count", dataset, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
     DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
     JFreeChart barChart1 = ChartFactory.createBarChart("Data Traffic Count", "Packet Data Type", "Data(KB)", dataset1,
             PlotOrientation.HORIZONTAL, true, true, false);
@@ -175,6 +176,7 @@ public class Home extends javax.swing.JFrame {
         jLabel56 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel39 = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
@@ -712,13 +714,10 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel26Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel26Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
@@ -790,6 +789,8 @@ public class Home extends javax.swing.JFrame {
         jLabel57.setText("Total number of Low Serverity Events");
         jPanel30.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 260, -1));
 
+        jLabel1.setText("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -798,27 +799,34 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 254, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel27)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addGap(0, 260, Short.MAX_VALUE))))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -829,7 +837,7 @@ public class Home extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -844,16 +852,16 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(45, Short.MAX_VALUE)))
+                    .addContainerGap(293, Short.MAX_VALUE)))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addGap(0, 504, Short.MAX_VALUE))
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                    .addGap(0, 279, Short.MAX_VALUE)
+                    .addGap(0, 243, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -864,7 +872,7 @@ public class Home extends javax.swing.JFrame {
         jLabel59.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(96, 83, 150));
         jLabel59.setText("0");
-        jPanel39.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 21, 75, -1));
+        jPanel39.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 75, -1));
 
         jPanel40.setBackground(new java.awt.Color(0, 51, 255));
 
@@ -895,8 +903,8 @@ public class Home extends javax.swing.JFrame {
                 .addGap(0, 37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
             .addGroup(HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(HomeLayout.createSequentialGroup()
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -908,9 +916,9 @@ public class Home extends javax.swing.JFrame {
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HomeLayout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129)
+                .addGap(88, 88, 88)
                 .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(532, Short.MAX_VALUE))
+                .addContainerGap(573, Short.MAX_VALUE))
             .addGroup(HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(HomeLayout.createSequentialGroup()
                     .addGap(0, 50, Short.MAX_VALUE)
@@ -2288,34 +2296,31 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void UpdateHomeGrpahic() {
-        Font font3 = new Font("Tahoma", Font.PLAIN, 20);
 
-        dataset.addValue(ctcp, "TCP", "Volume");
-        dataset.addValue(cudp, "UDP", "Volume");
-        dataset.addValue(cicmp, "ICMP", "Volume");
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        CategoryPlot plot1 = barChart.getCategoryPlot();
-
-        plot1.getDomainAxis().setLabelFont(font3);
-        plot1.getRangeAxis().setLabelFont(font3);
+        dataset.setValue("TCP", ctcp);
+        dataset.setValue("UDP", cudp);
+        dataset.setValue("ICMP", cicmp);
 
         dataset1.addValue(dtcp, "TCP", "Data Traffic");
         dataset1.addValue(dudp, "UDP", "Data Traffic");
         dataset1.addValue(dicmp, "ICMP", "Data Traffic");
 
+    }
+
+    private void initHomeGrpahic() {
+        Font font3 = new Font("Tahoma", Font.PLAIN, 20);
+        pieChart.getTitle().setFont(new Font("Tahoma", Font.PLAIN, 20));
+        PiePlot plot = (PiePlot) pieChart.getPlot();
+        plot.setLabelFont(font3);
         CategoryPlot plot2 = barChart1.getCategoryPlot();
 
         plot2.getDomainAxis().setLabelFont(font3);
         plot2.getRangeAxis().setLabelFont(font3);
-
-    }
-
-    private void initHomeGrpahic() {
+        BorderLayout thisLayout = new BorderLayout();
         jPanel6.setLayout(new BorderLayout());
         try {
             {
-                BorderLayout thisLayout = new BorderLayout();
+
                 jPanel6.setLayout(thisLayout);
 //				{
 //					jPanel90 = new JPanel();
@@ -2335,7 +2340,7 @@ public class Home extends javax.swing.JFrame {
                     jPanel6.add(jPanel91);
                     jPanel91.setPreferredSize(new java.awt.Dimension(554, 500));
                     {
-                        ChartPanel myChart1 = new ChartPanel(barChart);
+                        ChartPanel myChart1 = new ChartPanel(pieChart);
                         jPanel91.add(myChart1);
                         myChart1.setPreferredSize(new java.awt.Dimension(500, 473));
                         myChart1.setVisible(true);
@@ -2507,6 +2512,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

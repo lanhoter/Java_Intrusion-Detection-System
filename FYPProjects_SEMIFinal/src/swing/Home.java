@@ -2,6 +2,7 @@ package swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -35,6 +36,14 @@ import jpcap.packet.TCPPacket;
 import jpcap.packet.UDPPacket;
 import javax.swing.table.TableRowSorter;
 import java.util.Date;
+import javafx.scene.chart.CategoryAxis;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 /**
  *
  * @author Admin
@@ -84,8 +93,20 @@ public class Home extends javax.swing.JFrame {
     List<String> AllPortSet = new ArrayList<>();
     DefaultComboBoxModel model1 = new DefaultComboBoxModel();
 
+    private JPanel jPanel90;
+    private JPanel jPanel91;
+    private JLabel jLabel91;
+    private JPanel jPanel92;
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    JFreeChart barChart = ChartFactory.createBarChart("Packets Count", "Packet Data Type", "Volume", dataset,
+            PlotOrientation.HORIZONTAL, true, true, false);
+    DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+    JFreeChart barChart1 = ChartFactory.createBarChart("Data Traffic Count", "Packet Data Type", "Data(KB)", dataset1,
+            PlotOrientation.HORIZONTAL, true, true, false);
+
     public Home() {
         initComponents();
+
         initIDS();
         initRuleConfiguration();
         setColor(btn_1);
@@ -138,7 +159,7 @@ public class Home extends javax.swing.JFrame {
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        button2 = new java.awt.Button();
+        button2 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
@@ -154,9 +175,7 @@ public class Home extends javax.swing.JFrame {
         jLabel56 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jPanel39 = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
@@ -609,30 +628,28 @@ public class Home extends javax.swing.JFrame {
 
         jPanel10.add(jPanel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 85, -1, 130));
 
-        button2.setBackground(new java.awt.Color(71, 120, 197));
-        button2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setLabel("Book");
+        button2.setText("Initialize Graphic");
+        button2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(button2)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 527, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 241, Short.MAX_VALUE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 241, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(475, Short.MAX_VALUE)
+                .addComponent(button2)
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -804,34 +821,16 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-
-        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"12/1/2018", "Expresso POS", "Kenya", null},
-                {"12/1/2018", "ROM Gen", "US", null},
-                {"12/1/2018", "Text Ed", "UK", null},
-                {"12/1/2018", "Mola Con", "China", null}
-            },
-            new String [] {
-                "Date", "Item", "Location", "Completed"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable2.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable2.setRowHeight(22);
-        jScrollPane2.setViewportView(jTable2);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Notificactions");
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1117, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 471, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -841,21 +840,21 @@ public class Home extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(45, Short.MAX_VALUE)))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(517, Short.MAX_VALUE))
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                    .addGap(0, 279, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel39.setBackground(new java.awt.Color(255, 255, 255));
@@ -1950,8 +1949,8 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date()); 
-        
+        String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date());
+
         Vector rulesVector = new Vector();
         if (jTextField1.getText() != ""
                 && jTextField5.getText() != ""
@@ -1969,18 +1968,21 @@ public class Home extends javax.swing.JFrame {
             rulesVector.addElement(jTextField7.getText());
             rulesVector.addElement(timeStamp.toString());
             nRules++;
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Please enter all the details", "Message", JOptionPane.ERROR_MESSAGE);
         }
         jLabel59.setText(String.valueOf(nRules));
         RuleRows.addElement(rulesVector);
         tabledisplayRules.addNotify();
-        saveToRuleTxt();
+        //saveToRuleTxt();
+        //addRuleList();
         jTextField1.setText("");
         jTextField5.setText("");
         jTextField6.setText("");
         jTextField7.setText("");
+        jTextField8.setText("");
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -2020,19 +2022,22 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_FilterPacketsMouseClicked
 
+    private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
+        initHomeGrpahic();
+    }//GEN-LAST:event_button2MouseClicked
+
     private final PacketReceiver handler = new PacketReceiver() {
         @Override
         public void receivePacket(Packet packet) {
             try {
                 Vector r = new Vector();
-                String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date()); 
+                String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date());
                 No++;
                 if (packet instanceof TCPPacket) {
-                    ctcp++;
-                    tcp_num.setText(String.valueOf(ctcp));
+
                     tcp = (TCPPacket) packet;
                     r.addElement(No);
-                    
+
                     r.addElement(timeStamp.toString());
                     r.addElement(tcp.src_ip.toString());
                     r.addElement(tcp.dst_ip.toString());
@@ -2047,8 +2052,6 @@ public class Home extends javax.swing.JFrame {
                     r.addElement(tcp.offset);
 
                 } else if (packet instanceof UDPPacket) {
-                    cudp++;
-                    UDP_num.setText(String.valueOf(cudp));
 
                     udp = (UDPPacket) packet;
                     r.addElement(No);
@@ -2066,8 +2069,7 @@ public class Home extends javax.swing.JFrame {
                     r.addElement(udp.offset);
 
                 } else if (packet instanceof ICMPPacket) {
-                    cicmp++;
-                    ICMP_num.setText(String.valueOf(cicmp));
+
                     icmp = (ICMPPacket) packet;
                     r.addElement(No);
                     r.addElement(timeStamp.toString());
@@ -2144,8 +2146,10 @@ public class Home extends javax.swing.JFrame {
             } catch (Exception e) {
 
             }
-
-            //newdeal(packet);
+            newdeal(packet);
+            UpdateHomeGrpahic();
+            jPanel91.repaint();
+            jPanel92.repaint();
         }
 
     };
@@ -2172,18 +2176,17 @@ public class Home extends javax.swing.JFrame {
 
     public void newdeal(Packet packet) {
         if (packet.getClass().equals(UDPPacket.class)) {
-            newCount.ctcp++;
-            newCount.dtcp += (double) packet.len / 1024;
+            ctcp++;
+            tcp_num.setText(String.valueOf(ctcp));
+            dtcp += (double) packet.len / 1024;
         } else if (packet.getClass().equals(TCPPacket.class)) {
-            newCount.cudp++;
-            newCount.dudp += (double) packet.len / 1024;
-        } //		else if(packet.getClass().equals(ARPPacket.class)) {
-        //			newCount.carp++;
-        //			newCount.darp+=(double)packet.len/1024;
-        //		}
-        else if (packet.getClass().equals(ICMPPacket.class)) {
-            newCount.cicmp++;
-            newCount.dicmp += (double) packet.len / 1024;
+            cudp++;
+            UDP_num.setText(String.valueOf(cudp));
+            dudp += (double) packet.len / 1024;
+        } else if (packet.getClass().equals(ICMPPacket.class)) {
+            cicmp++;
+            ICMP_num.setText(String.valueOf(cicmp));
+            dicmp += (double) packet.len / 1024;
         }
     }
 
@@ -2197,7 +2200,7 @@ public class Home extends javax.swing.JFrame {
         jPanel4.setLayout(new BorderLayout());
         RuleRows = new Vector();
         RuleColumns = new Vector();
-        
+
         RuleColumns.addElement("Rule No");
         RuleColumns.addElement("Rule Name");
         RuleColumns.addElement("Wireless Card");
@@ -2211,9 +2214,7 @@ public class Home extends javax.swing.JFrame {
         tablemodelRule = new DefaultTableModel();
         tablemodelRule.setDataVector(RuleRows, RuleColumns);
         tabledisplayRules = new JTable(tablemodelRule);
-        statusLabel = new JLabel("");
 
-        
         tabledisplayRules.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabledisplayRules.getColumnModel().getColumn(0).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -2225,7 +2226,7 @@ public class Home extends javax.swing.JFrame {
         tabledisplayRules.getColumnModel().getColumn(7).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(8).setPreferredWidth(160);
         tabledisplayRules.getColumnModel().getColumn(9).setPreferredWidth(150);
-        
+
         jPanel4.add(new JScrollPane(tabledisplayRules), BorderLayout.CENTER);
     }
 
@@ -2263,29 +2264,116 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void saveToRuleTxt() {
-        try{
-        File file = new File("C:\\Users\\Du\\Desktop\\FYP Projects\\FYPProjects_SEMIFinal\\Text.txt");
-        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-        BufferedWriter bfw = new BufferedWriter(fw);
-        for (int i = 0; i < tabledisplayRules.getColumnCount(); i++) {
-            bfw.write(tabledisplayRules.getColumnName(i));
-            bfw.write("\t");
+        try {
+            File file = new File("C:\\Users\\Du\\Desktop\\FYP Projects\\FYPProjects_SEMIFinal\\Text.txt");
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bfw = new BufferedWriter(fw);
+            for (int i = 0; i < tabledisplayRules.getColumnCount(); i++) {
+                bfw.write(tabledisplayRules.getColumnName(i));
+                bfw.write("\t");
+            }
+
+            for (int i = 0; i < tabledisplayRules.getRowCount(); i++) {
+                bfw.newLine();
+                for (int j = 0; j < tabledisplayRules.getColumnCount(); j++) {
+                    bfw.write((String) (tabledisplayRules.getValueAt(i, j)));
+                    bfw.write("\t");;
+                }
+            }
+            bfw.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        for (int i = 0; i < tabledisplayRules.getRowCount(); i++) {
-            bfw.newLine();
-            for (int j = 0; j < tabledisplayRules.getColumnCount(); j++) {
-                bfw.write((String) (tabledisplayRules.getValueAt(i, j)));
-                bfw.write("\t");;
-            }
-        }
-        bfw.close();
-        }catch(Exception ex){
-                   ex.printStackTrace();
-        }
-      
     }
 
+    private void UpdateHomeGrpahic() {
+        Font font3 = new Font("Tahoma", Font.PLAIN, 20);
+
+        dataset.addValue(ctcp, "TCP", "Volume");
+        dataset.addValue(cudp, "UDP", "Volume");
+        dataset.addValue(cicmp, "ICMP", "Volume");
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        CategoryPlot plot1 = barChart.getCategoryPlot();
+
+        plot1.getDomainAxis().setLabelFont(font3);
+        plot1.getRangeAxis().setLabelFont(font3);
+
+        dataset1.addValue(dtcp, "TCP", "Data Traffic");
+        dataset1.addValue(dudp, "UDP", "Data Traffic");
+        dataset1.addValue(dicmp, "ICMP", "Data Traffic");
+
+        CategoryPlot plot2 = barChart1.getCategoryPlot();
+
+        plot2.getDomainAxis().setLabelFont(font3);
+        plot2.getRangeAxis().setLabelFont(font3);
+
+    }
+
+    private void initHomeGrpahic() {
+        jPanel6.setLayout(new BorderLayout());
+        try {
+            {
+                BorderLayout thisLayout = new BorderLayout();
+                jPanel6.setLayout(thisLayout);
+//				{
+//					jPanel90 = new JPanel();
+//					jPanel6.add(jPanel90, BorderLayout.EAST);
+//					jPanel90.setPreferredSize(new java.awt.Dimension(384, 66));
+//					jPanel90.setLayout(null);
+//					{
+//						jLabel91 = new JLabel();
+//						jPanel90.add(jLabel1);
+//						jLabel91.setText("\u7ed3\u679c\u56fe\u8868\u663e\u793a");
+//						jPanel90.setBounds(159, 12, 81, 42);
+//					}
+//				}
+                {
+
+                    jPanel91 = new JPanel();
+                    jPanel6.add(jPanel91);
+                    jPanel91.setPreferredSize(new java.awt.Dimension(554, 500));
+                    {
+                        ChartPanel myChart1 = new ChartPanel(barChart);
+                        jPanel91.add(myChart1);
+                        myChart1.setPreferredSize(new java.awt.Dimension(500, 473));
+                        myChart1.setVisible(true);
+                    }
+
+                }
+                {
+                    jPanel92 = new JPanel();
+                    jPanel6.add(jPanel92, BorderLayout.EAST);
+                    jPanel92.setPreferredSize(new java.awt.Dimension(554, 500));
+                    {
+                        ChartPanel myChart = new ChartPanel(barChart1);
+                        jPanel92.add(myChart);
+                        myChart.setPreferredSize(new java.awt.Dimension(500, 473));
+                        myChart.setVisible(true);
+                    }
+
+                }
+            }
+            jPanel6.setSize(500, 659);
+            jPanel6.updateUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    private void addRuleList() {
+//        
+//        String Rulelist [] [];
+//
+//        for(int RuleRowCount = 0; RuleRowCount < tabledisplayRules.getRowCount(); RuleRowCount++) {
+//            for(int RuleColumnCount = 0; RuleColumnCount < tabledisplayRules.getColumnCount(); RuleColumnCount++) {
+//              Rulelist.add(tabledisplayRules.getValueAt(RuleRowCount, RuleColumnCount));  
+//            }
+//        }
+//        
+//        System.out.println(Rulelist);
+//    }
 //    public static boolean TestFilter(Packet packet) {
 //        if (FilterMess.contains("sip")) {
 //            String sip = FilterMess.substring(4, FilterMess.length());
@@ -2405,7 +2493,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel btn_exit1;
     private javax.swing.JLabel btn_exit2;
     private javax.swing.JLabel btn_exit4;
-    private java.awt.Button button2;
+    private javax.swing.JButton button2;
     private javax.swing.JPanel ind_1;
     private javax.swing.JPanel ind_2;
     private javax.swing.JPanel ind_3;
@@ -2419,7 +2507,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2508,18 +2595,17 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JProgressBar jProgressBar4;
     private javax.swing.JProgressBar jProgressBar5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;

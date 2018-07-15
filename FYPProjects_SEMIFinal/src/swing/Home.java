@@ -2170,10 +2170,6 @@ public class Home extends javax.swing.JFrame {
                     r.addElement(timeStamp.toString());
                     r.addElement(icmp.src_ip.toString());
                     r.addElement(icmp.dst_ip.toString());
-//                    if (icmp.dst_ip.toString().equals("255.255.255.255")) {
-//                        newCount.cGuangBo++;
-//                        newCount.dGuangBo += (double) packet.len / 1024;
-//                    }
                     r.addElement("ICMP");
                     r.addElement("Null");
                     r.addElement("Null");

@@ -2495,7 +2495,7 @@ public class Home extends javax.swing.JFrame {
                     {
                         ChartPanel myChart1 = new ChartPanel(pieChart);
                         jPanel91.add(myChart1);
-                        myChart1.setPreferredSize(new java.awt.Dimension(500, 473));
+                        myChart1.setPreferredSize(new java.awt.Dimension(550, 490));
                         myChart1.setVisible(true);
                     }
 

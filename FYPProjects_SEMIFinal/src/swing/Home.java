@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -47,13 +46,9 @@ import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
- * @author Admin
+ * @author Du
  */
 public class Home extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Home
-     */
     private static final String RULEFILENAME = "C:\\Users\\Du\\Desktop\\FYP Projects\\Java_Intrusion-Detection-System-master\\"
             + "Java_Intrusion-Detection-System-master\\FYPProjects_SEMIFinal\\TempDB\\RuleText.txt";
 
@@ -84,13 +79,11 @@ public class Home extends javax.swing.JFrame {
     static int cHighAttck = 0;
     static int cMediumAttck = 0;
     static int cLowAttck = 0;
-    //static int cGuangBo = 0;
     static int nRules = 0;
     static double dtcp = 0;
     static double dudp = 0;
     static double dicmp = 0;
     static double darp = 0;
-    static double dGuangBo = 0;
     static int No = 0;
     static int RuleNo = 0;
     List<String> srcIPSet = new ArrayList<>();
@@ -108,7 +101,8 @@ public class Home extends javax.swing.JFrame {
     List<String> RuleIPSetCompare = new ArrayList<>();
     List<String> RulePortSet = new ArrayList<>();
     List<String> RuleAttempts = new ArrayList<>();
-
+    List<String> RuleStatus = new ArrayList<>();
+    static String timeStamp = new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date());
     DefaultComboBoxModel model1 = new DefaultComboBoxModel();
 
     private JPanel jPanel91;
@@ -139,6 +133,12 @@ public class Home extends javax.swing.JFrame {
         IDS.setVisible(false);
         RuleConfig.setVisible(false);
         Home.setVisible(true);
+        Alerts.setVisible(false);
+        jTextArea2.append(timeStamp + " Program Actived\n");
+        jTextArea2.append(timeStamp + " Intrusion Detection System Initialized\n");
+        jTextArea2.append(timeStamp + " Initializing Rule Configuration Panel\n");
+        jTextArea2.append(timeStamp + " Rule Configuration Panel Initialized\n");
+        jTextArea2.append(timeStamp + " System Logs Initialized\n");
     }
 
     @SuppressWarnings("unchecked")
@@ -396,7 +396,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Alerts");
+        jLabel9.setText("SystemLogs");
 
         javax.swing.GroupLayout btn_2Layout = new javax.swing.GroupLayout(btn_2);
         btn_2.setLayout(btn_2Layout);
@@ -406,7 +406,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(ind_2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel9)
-                .addGap(0, 162, Short.MAX_VALUE))
+                .addGap(0, 96, Short.MAX_VALUE))
         );
         btn_2Layout.setVerticalGroup(
             btn_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,7 +453,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(ind_3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel10)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         btn_3Layout.setVerticalGroup(
             btn_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,7 +461,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(ind_3, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+            .addComponent(ind_3, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
         side_pane.add(btn_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 260, -1));
@@ -562,6 +562,7 @@ public class Home extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(71, 120, 197));
         jPanel9.setPreferredSize(new java.awt.Dimension(301, 750));
 
+        button2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         button2.setText("Initialize Graphic");
         button2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -581,7 +582,7 @@ public class Home extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(526, Short.MAX_VALUE)
+                .addContainerGap(522, Short.MAX_VALUE)
                 .addComponent(button2)
                 .addGap(27, 27, 27))
         );
@@ -1018,13 +1019,15 @@ public class Home extends javax.swing.JFrame {
         jLabel24.setText("System Administator");
         jPanel16.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 30));
 
+        WS_lists.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         WSProperty.setColumns(20);
         WSProperty.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         WSProperty.setRows(5);
         WSProperty.setPreferredSize(new java.awt.Dimension(280, 104));
         jScrollPane1.setViewportView(WSProperty);
 
-        Load_Wireless_btn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Load_Wireless_btn.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         Load_Wireless_btn.setText("Load Wireless Card");
         Load_Wireless_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1032,7 +1035,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        ScanNet.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ScanNet.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         ScanNet.setText("Scan Network");
         ScanNet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1045,9 +1048,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox1.setToolTipText("");
 
-        FilterPackets.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        FilterPackets.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         FilterPackets.setText("Filter Packets");
         FilterPackets.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1061,8 +1065,12 @@ public class Home extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setText("Protocol");
 
+        jComboBox5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setText("Port");
+
+        jComboBox6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1124,7 +1132,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(FilterPackets)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -1149,7 +1157,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel39.setText("Scaned Packets");
+        jLabel39.setText("Scan Packets");
 
         jPanel33.setBackground(new java.awt.Color(255, 255, 255));
         jPanel33.setPreferredSize(new java.awt.Dimension(150, 60));
@@ -1262,14 +1270,14 @@ public class Home extends javax.swing.JFrame {
         jPanel37.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 120, -1));
 
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
 
         jPanel43.setBackground(new java.awt.Color(255, 255, 255));
         jPanel43.setPreferredSize(new java.awt.Dimension(150, 60));
 
-        Block_Num.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Block_Num.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         Block_Num.setForeground(new java.awt.Color(96, 83, 150));
         Block_Num.setText("0");
 
@@ -1309,7 +1317,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addComponent(Block_Num, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Block_Num, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1325,8 +1333,8 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 967, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jLabel39)
-                        .addGap(375, 375, 375)
+                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(351, 351, 351)
                         .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1341,16 +1349,12 @@ public class Home extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel39, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -1455,7 +1459,7 @@ public class Home extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Wireless Card");
 
-        jComboBox7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel18.setText("Protocol");
@@ -1469,24 +1473,24 @@ public class Home extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Status");
 
-        jComboBox8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TCP", "UDP", "ICMP" }));
 
-        jComboBox9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        jComboBox10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Block", "Allow" }));
 
-        jComboBox11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox11.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inactive", "Active", "Implemented" }));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton1.setText("Filter Rules");
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCheckBox1.setText("Enable Email Notification");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField9ActionPerformed(evt);
@@ -1553,7 +1557,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jCheckBox1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jPanel22.setBackground(new java.awt.Color(120, 168, 252));
@@ -1641,12 +1645,14 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Rule Name");
 
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Wireless Card");
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton2.setText("Add Rule");
         jButton2.setMaximumSize(new java.awt.Dimension(147, 31));
         jButton2.setMinimumSize(new java.awt.Dimension(147, 31));
@@ -1657,7 +1663,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Block", "Allow" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -1669,32 +1675,35 @@ public class Home extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Protocol");
 
-        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TCP", "UDP", "ICMP" }));
+
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("IP Address");
 
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setText("Description:");
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton3.setText("Change Status");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setText("Attempts");
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton4.setText("Delete Rule");
         jButton4.setMaximumSize(new java.awt.Dimension(147, 31));
         jButton4.setMinimumSize(new java.awt.Dimension(147, 31));
@@ -1817,7 +1826,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout RuleConfigLayout = new javax.swing.GroupLayout(RuleConfig);
@@ -1888,7 +1897,6 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void btn_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1MousePressed
-        // TODO add your handling code here:
         setColor(btn_1);
         ind_1.setOpaque(true);
         resetColor(new JPanel[]{btn_2, btn_3, btn_4}, new JPanel[]{ind_2, ind_3, ind_4});
@@ -1899,7 +1907,6 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_1MousePressed
 
     private void btn_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3MousePressed
-        // TODO add your handling code here:
         setColor(btn_3);
         ind_3.setOpaque(true);
         resetColor(new JPanel[]{btn_2, btn_1, btn_4}, new JPanel[]{ind_2, ind_1, ind_4});
@@ -1910,7 +1917,6 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_3MousePressed
 
     private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
-        // TODO add your handling code here:
         setColor(btn_4);
         ind_4.setOpaque(true);
         resetColor(new JPanel[]{btn_2, btn_3, btn_1}, new JPanel[]{ind_2, ind_3, ind_1});
@@ -1923,31 +1929,24 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_4MousePressed
 
     private void jPanel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseDragged
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel8MouseDragged
 
     private void jPanel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel8MousePressed
 
     private void jPanel14MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseDragged
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel14MouseDragged
 
     private void jPanel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel14MousePressed
 
     private void jPanel20MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseDragged
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel20MouseDragged
 
     private void jPanel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jPanel20MousePressed
 
     private void Load_Wireless_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Load_Wireless_btnMouseClicked
-        // TODO add your handling code here:
         WS_lists.removeAllItems();
         Load_Wireless_btn.setEnabled(false);
         devices = JpcapCaptor.getDeviceList();
@@ -1983,6 +1982,22 @@ public class Home extends javax.swing.JFrame {
     private void ScanNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanNetActionPerformed
         ScanNet.setText("Stop");
 
+        for (count = 0; count < tablemodelRule.getRowCount(); count++) {
+            //System.out.println(tablemodelRule.getRowCount());
+            RulePortSet.add(tablemodelRule.getValueAt(count, 5).toString());
+            RuleAttempts.add(tablemodelRule.getValueAt(count, 7).toString());
+            RuleStatus.add(tablemodelRule.getValueAt(count, 10).toString());
+            // System.out.println(RuleStatus);
+            if (RuleIPSet.contains(tablemodelRule.getValueAt(count, 4).toString())
+                    || RuleIPSetCompare.contains(tablemodelRule.getValueAt(count, 4).toString())) {
+
+            } else {
+                RuleNameSet.add(tablemodelRule.getValueAt(count, 1).toString());
+                RuleIPSet.add("/" + tablemodelRule.getValueAt(count, 4).toString());
+                RuleIPSetCompare.add(tablemodelRule.getValueAt(count, 4).toString());
+            }
+        }
+
         devices = JpcapCaptor.getDeviceList();
         int i = WS_lists.getSelectedIndex();
         try {
@@ -2011,11 +2026,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_ScanNetActionPerformed
 
     private void ScanNetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ScanNetMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_ScanNetMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date());
 
         Vector rulesVector = new Vector();
         if (jTextField1.getText() != ""
@@ -2055,16 +2068,18 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-        int SelectToDeleteRow = tabledisplayRules.getSelectedRow();
-        if (SelectToDeleteRow == -1) {
-            JOptionPane.showMessageDialog(Home, "Please select at least one row!");
+        int col = tabledisplayRules.getSelectedColumn();
+        int row = tabledisplayRules.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tabledisplayRules.getModel();
+        Object val = model.getValueAt(row, col);
+        //model.removeRow(index);
+        model.setValueAt("Active", row, col);
+        if (val.toString().trim() != "Inactive") {
+            model.setValueAt("Inactive", row, col);
         } else {
-            tablemodelRule.removeRow(SelectToDeleteRow);
-            nRules--;
-            jLabel59.setText(String.valueOf(nRules));
-            saveToRuleTxt();
+            model.setValueAt("Active", row, col);
         }
+        saveToRuleTxt();
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void FilterPacketsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FilterPacketsMouseClicked
@@ -2091,36 +2106,25 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_button2MouseClicked
 
     private void btn_exit3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit3MousePressed
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btn_exit3MousePressed
 
     private void btn_exit4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit4MousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btn_exit4MousePressed
 
     private void btn_exit5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit5MousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btn_exit5MousePressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void btn_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2MouseClicked
-        // TODO add your handling code here:
         setColor(btn_2);
         ind_2.setOpaque(true);
         resetColor(new JPanel[]{btn_3, btn_1, btn_4}, new JPanel[]{ind_3, ind_1, ind_4});
@@ -2136,7 +2140,6 @@ public class Home extends javax.swing.JFrame {
 
             try {
                 Vector r = new Vector();
-                String timeStamp = new SimpleDateFormat("yyyyMMdd.HH:mm:ss").format(new Date());
                 No++;
 
                 if (packet instanceof TCPPacket) {
@@ -2201,20 +2204,6 @@ public class Home extends javax.swing.JFrame {
                 }
                 AllIPSet.addAll(srcIPSet);
                 AllIPSet.addAll(destIPSet);
-                //System.out.println(srcIPSet);
-//                    List<String> RuleIPSet = new ArrayList<>();
-//    List<String> RulePortSet = new ArrayList<>();
-//    List<String> RuleAttempts = new ArrayList<>();
-
-                //System.out.println(IPCounter);
-                //
-                //System.out.println(IPCounter);
-//                for(int i = 0; i < RuleIPSet.size(); i++ )
-//                    for(int j = 0; j < RuleIPSet.size(); j++ )
-//                        if (srcIPSet.indexOf(i) == (RuleIPSet.indexOf(j))){
-//                         IPCounter += 1;
-//                    }
-//                System.out.println(IPCounter);
                 UnknownIPSet.addAll(srcIPSet);
                 destIPSet.stream().filter((element) -> (!UnknownIPSet.contains(element))).forEachOrdered((element) -> {
                     UnknownIPSet.add(element);
@@ -2257,57 +2246,51 @@ public class Home extends javax.swing.JFrame {
             } catch (Exception e) {
 
             }
-            List<String> RuleIPSetCompare = new ArrayList<>();
-
-            for (count = 0; count < tablemodelRule.getRowCount(); count++) {
-                //System.out.println(tablemodelRule.getRowCount());
-                RulePortSet.add(tablemodelRule.getValueAt(count, 5).toString());
-                RuleAttempts.add(tablemodelRule.getValueAt(count, 7).toString());
-                if (RuleIPSet.contains(tablemodelRule.getValueAt(count, 4).toString())
-                        || RuleIPSetCompare.contains(tablemodelRule.getValueAt(count, 4).toString())) {
-
-                } else {
-                    RuleNameSet.add(tablemodelRule.getValueAt(count, 1).toString());
-                    RuleIPSet.add("/" + tablemodelRule.getValueAt(count, 4).toString());
-                    RuleIPSetCompare.add(tablemodelRule.getValueAt(count, 4).toString());
-                }
-            }
-//            if(srcIPSetTemp.size() > 2){
-            int size1 = RuleIPSetCompare.size();
             int size2 = srcIPSetTemp.size();
-            for (int k = 0; k < size1; k++) {
-                for (int j = 0; j < size2; j++) {
-                    // System.out.println(srcIPSetTemp.get(k).trim());
-                    if (RuleIPSet.get(k).trim().equals(srcIPSetTemp.get(j).trim())) {
-                        IPCounter++;
-                        if (IPCounter <= Integer.parseInt((RuleAttempts.get(j).trim()))) {
-                            jTextArea2.append(RuleIPSet.get(k).trim() + " is detected in the network traffic, Times: " + IPCounter + "\n");
-                            j++;
-                        } else {
+            int size3 = RuleStatus.size();
 
-                            String command = "netsh advfirewall firewall add rule name="
-                                    + RuleNameSet.get(k).trim() + " Dir=in Action=Block RemoteIP=" + RuleIPSetCompare.get(k).trim();
-                            Runtime runtime = Runtime.getRuntime();
-                            try {
-                                Process process = runtime.exec(command);
-                                jTextArea1.append("Rule Name: " + RuleNameSet.get(k).trim() + " is added into the Firewall\n");
-                                jTextArea1.append(RuleIPSet.get(k).trim() + " is added into the firewall. status: Blocked" + "\n");
-                                jTextArea2.append("Rule Name: " + RuleNameSet.get(k).trim() + " is added into the Firewall\n");
-                                jTextArea2.append(RuleIPSet.get(k).trim() + " is added into the firewall. status: Blocked" + "\n");
-                                RuleIPSet.remove(k);
-                                cBlockedAttck++;
-                                cLowAttck++;
-                                jLabel56.setText(String.valueOf(cLowAttck));
-                                Block_Num.setText(String.valueOf(cBlockedAttck));
-                            } catch (IOException e) {
-                                e.printStackTrace();
+            for (int m = 0; m < size3; m++) {
+                if (RuleStatus.get(m).trim().equals("Active")) {
+                    System.out.println(m);
+                    for (int j = 0; j < size2; j++) {
+                        if (RuleIPSet.get(m).trim().equals(srcIPSetTemp.get(j).trim())) {
+                            System.out.println("true");
+                            IPCounter++;
+                            if (IPCounter <= Integer.parseInt((RuleAttempts.get(m).trim()))) {
+                                jTextArea2.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is detected in the network traffic, Times: " + IPCounter + "\n");
+
+                            } else {
+                                String command = "netsh advfirewall firewall add rule name="
+                                        + RuleNameSet.get(m).trim() + " Dir=Out Action=Block RemoteIP=" + RuleIPSetCompare.get(m).trim();
+                                Runtime runtime = Runtime.getRuntime();
+                                try {
+                                    Process process = runtime.exec(command);
+                                    int col = 10;
+                                    int row = m;
+                                    DefaultTableModel model = (DefaultTableModel) tabledisplayRules.getModel();
+                                    Object val = model.getValueAt(row, col);
+                                    model.setValueAt("Implemented", row, col);
+                                    jTextArea1.append(timeStamp + " Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
+                                    jTextArea1.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
+                                    jTextArea2.append(timeStamp + " Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
+                                    jTextArea2.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
+                                    RuleIPSet.remove(m);
+                                    cBlockedAttck++;
+                                    cLowAttck++;
+                                    jLabel56.setText(String.valueOf(cLowAttck));
+                                    Block_Num.setText(String.valueOf(cBlockedAttck));
+                                    m++;
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                        k++;
-                    } else {
-                        j++;
-                    }
 
+                        } else {
+                            j++;
+                        }
+                    }
+                } else { //implemented. inactive
+                    m++;
                 }
             }
             newdeal(packet);
@@ -2317,7 +2300,6 @@ public class Home extends javax.swing.JFrame {
             jPanel91.repaint();
             jPanel92.repaint();
         }
-
     };
 
     public void newdeal(Packet packet) {
@@ -2339,7 +2321,6 @@ public class Home extends javax.swing.JFrame {
     private void initRuleConfiguration() {
         devices = JpcapCaptor.getDeviceList();
         for (int i = 0; i < devices.length; i++) {
-            //WS_lists.getItems().addAll(Interfaces[i].description);
             jComboBox2.addItem(devices[i].description);
         }
 
@@ -2386,17 +2367,17 @@ public class Home extends javax.swing.JFrame {
         tabledisplayRules = new JTable(tablemodelRule);
 
         tabledisplayRules.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabledisplayRules.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tabledisplayRules.getColumnModel().getColumn(0).setPreferredWidth(65);
         tabledisplayRules.getColumnModel().getColumn(1).setPreferredWidth(100);
         tabledisplayRules.getColumnModel().getColumn(2).setPreferredWidth(120);
         tabledisplayRules.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tabledisplayRules.getColumnModel().getColumn(4).setPreferredWidth(120);
-        tabledisplayRules.getColumnModel().getColumn(5).setPreferredWidth(120);
+        tabledisplayRules.getColumnModel().getColumn(4).setPreferredWidth(140);
+        tabledisplayRules.getColumnModel().getColumn(5).setPreferredWidth(100);
         tabledisplayRules.getColumnModel().getColumn(6).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(7).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(8).setPreferredWidth(120);
         tabledisplayRules.getColumnModel().getColumn(9).setPreferredWidth(150);
-
+        tabledisplayRules.setFont(new Font("Tahoma", Font.PLAIN, 14));
         jPanel4.add(new JScrollPane(tabledisplayRules), BorderLayout.CENTER);
     }
 
@@ -2430,6 +2411,7 @@ public class Home extends javax.swing.JFrame {
         tabledisplay.getColumnModel().getColumn(6).setPreferredWidth(130);
         tabledisplay.getColumnModel().getColumn(7).setPreferredWidth(80);
         tabledisplay.getColumnModel().getColumn(8).setPreferredWidth(80);
+        tabledisplay.setFont(new Font("Tahoma", Font.PLAIN, 14));
         jPanel3.add(new JScrollPane(tabledisplay), BorderLayout.CENTER);
     }
 
@@ -2449,7 +2431,6 @@ public class Home extends javax.swing.JFrame {
             }
         } catch (IOException ex) {
         }
-
     }
 
     private void RuleTextToJtable() {
@@ -2461,7 +2442,6 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void UpdateHomeGrpahic() {
-
         dataset.setValue("TCP", ctcp);
         dataset.setValue("UDP", cudp);
         dataset.setValue("ICMP", cicmp);
@@ -2469,12 +2449,11 @@ public class Home extends javax.swing.JFrame {
         dataset1.addValue(dtcp, "TCP", "Data Traffic");
         dataset1.addValue(dudp, "UDP", "Data Traffic");
         dataset1.addValue(dicmp, "ICMP", "Data Traffic");
-
     }
 
     private void initHomeGrpahic() {
-        Font font3 = new Font("Tahoma", Font.PLAIN, 20);
-        pieChart.getTitle().setFont(new Font("Tahoma", Font.PLAIN, 20));
+        Font font3 = new Font("Tahoma", Font.PLAIN, 18);
+        pieChart.getTitle().setFont(new Font("Tahoma", Font.PLAIN, 18));
         PiePlot plot = (PiePlot) pieChart.getPlot();
         plot.setLabelFont(font3);
         CategoryPlot plot2 = barChart1.getCategoryPlot();
@@ -2485,7 +2464,6 @@ public class Home extends javax.swing.JFrame {
         jPanel6.setLayout(new BorderLayout());
         try {
             {
-
                 jPanel6.setLayout(thisLayout);
                 {
 
@@ -2766,6 +2744,6 @@ public class Home extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void intAlerts() {
-        
+
     }
 }

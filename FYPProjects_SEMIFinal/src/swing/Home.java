@@ -49,8 +49,8 @@ import org.jfree.data.general.DefaultPieDataset;
  * @author Du
  */
 public class Home extends javax.swing.JFrame {
-    private static final String RULEFILENAME = "C:\\Users\\Du\\Desktop\\FYP Projects\\Java_Intrusion-Detection-System-master\\"
-            + "Java_Intrusion-Detection-System-master\\FYPProjects_SEMIFinal\\TempDB\\RuleText.txt";
+    private static final String RULEFILENAME = "C:\\Users\\du\\Desktop\\IDS\\Java_Intrusion-Detection-System-master\\"
+            + "FYPProjects_SEMIFinal\\TempDB\\RuleText.txt";
 
     NetworkInterface[] devices;
     static ArrayList<Packet> packetlist = new ArrayList<Packet>();
@@ -1986,6 +1986,10 @@ public class Home extends javax.swing.JFrame {
             //System.out.println(tablemodelRule.getRowCount());
             RulePortSet.add(tablemodelRule.getValueAt(count, 5).toString());
             RuleAttempts.add(tablemodelRule.getValueAt(count, 7).toString());
+            
+           // if (tablemodelRule.getValueAt(count, 10).toString() != "Implemented") {
+                
+            //}
             RuleStatus.add(tablemodelRule.getValueAt(count, 10).toString());
             // System.out.println(RuleStatus);
             if (RuleIPSet.contains(tablemodelRule.getValueAt(count, 4).toString())
@@ -2270,23 +2274,26 @@ public class Home extends javax.swing.JFrame {
                                     DefaultTableModel model = (DefaultTableModel) tabledisplayRules.getModel();
                                     Object val = model.getValueAt(row, col);
                                     model.setValueAt("Implemented", row, col);
+                                    saveToRuleTxt();
                                     jTextArea1.append(timeStamp + " Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
                                     jTextArea1.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
                                     jTextArea2.append(timeStamp + " Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
                                     jTextArea2.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
-                                    RuleIPSet.remove(m);
+                                    RuleIPSet.set(m, "checked");
                                     cBlockedAttck++;
                                     cLowAttck++;
                                     jLabel56.setText(String.valueOf(cLowAttck));
                                     Block_Num.setText(String.valueOf(cBlockedAttck));
+                                    //m++;
                                     m++;
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
+                                
                             }
-
+                             
                         } else {
-                            j++;
+                           j++;
                         }
                     }
                 } else { //implemented. inactive
@@ -2375,8 +2382,9 @@ public class Home extends javax.swing.JFrame {
         tabledisplayRules.getColumnModel().getColumn(5).setPreferredWidth(100);
         tabledisplayRules.getColumnModel().getColumn(6).setPreferredWidth(80);
         tabledisplayRules.getColumnModel().getColumn(7).setPreferredWidth(80);
-        tabledisplayRules.getColumnModel().getColumn(8).setPreferredWidth(120);
+        tabledisplayRules.getColumnModel().getColumn(8).setPreferredWidth(100);
         tabledisplayRules.getColumnModel().getColumn(9).setPreferredWidth(150);
+        tabledisplayRules.getColumnModel().getColumn(10).setPreferredWidth(120);
         tabledisplayRules.setFont(new Font("Tahoma", Font.PLAIN, 14));
         jPanel4.add(new JScrollPane(tabledisplayRules), BorderLayout.CENTER);
     }
@@ -2417,8 +2425,8 @@ public class Home extends javax.swing.JFrame {
 
     private void saveToRuleTxt() {
         try {
-            File file = new File("C:\\Users\\Du\\Desktop\\FYP Projects\\Java_Intrusion-Detection-System-master\\"
-                    + "Java_Intrusion-Detection-System-master\\FYPProjects_SEMIFinal\\TempDB\\RuleText.txt");
+            File file = new File("C:\\Users\\du\\Desktop\\IDS\\Java_Intrusion-Detection-System-master\\"
+                    + "FYPProjects_SEMIFinal\\TempDB\\RuleText.txt");
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             try (BufferedWriter bfw = new BufferedWriter(fw)) {
                 for (int i = 0; i < tabledisplayRules.getRowCount(); i++) {

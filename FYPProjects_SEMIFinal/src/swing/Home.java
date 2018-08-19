@@ -1,4 +1,4 @@
-package swing;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,6 +35,13 @@ import jpcap.packet.TCPPacket;
 import jpcap.packet.UDPPacket;
 import javax.swing.table.TableRowSorter;
 import java.util.Date;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -86,6 +93,10 @@ public class Home extends javax.swing.JFrame {
     static double darp = 0;
     static int No = 0;
     static int RuleNo = 0;
+    //email
+    static Properties mailServerProperties;
+    static Session getMailSession;
+    static MimeMessage generateMailMessage;
     List<String> srcIPSet = new ArrayList<>();
     List<String> destIPSet = new ArrayList<>();
     List<String> UnknownIPSet = new ArrayList<>();
@@ -101,7 +112,9 @@ public class Home extends javax.swing.JFrame {
     List<String> RuleIPSetCompare = new ArrayList<>();
     List<String> RulePortSet = new ArrayList<>();
     List<String> RuleAttempts = new ArrayList<>();
+    List<String> RuleDescription = new ArrayList<>();
     List<String> RuleStatus = new ArrayList<>();
+    
     static String timeStamp = new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date());
     DefaultComboBoxModel model1 = new DefaultComboBoxModel();
 
@@ -166,6 +179,12 @@ public class Home extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         button2 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
         jPanel32 = new javax.swing.JPanel();
         btn_exit5 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
@@ -224,6 +243,7 @@ public class Home extends javax.swing.JFrame {
         jComboBox5 = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jComboBox6 = new javax.swing.JComboBox<>();
+        ResetBtn = new javax.swing.JButton();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
@@ -265,6 +285,7 @@ public class Home extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jTextField9 = new javax.swing.JTextField();
+        ResetRuleBtn = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
         btn_exit4 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -536,7 +557,7 @@ public class Home extends javax.swing.JFrame {
         jTextField2.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField2.setPreferredSize(new java.awt.Dimension(2, 20));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Search_18px.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Search_18px.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -570,28 +591,67 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane4.setViewportView(jTextArea3);
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel22.setText("Activated Rules");
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel23.setText("System Alerts");
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jScrollPane5.setViewportView(jTextArea4);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(button2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(button2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel23)
+                                .addGap(19, 19, 19)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5)
+                            .addComponent(jScrollPane4))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(522, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addComponent(button2)
-                .addGap(27, 27, 27))
+                .addGap(41, 41, 41)
+                .addComponent(jLabel23)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel22)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel32.setBackground(new java.awt.Color(120, 168, 252));
         jPanel32.setPreferredSize(new java.awt.Dimension(301, 165));
         jPanel32.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_exit5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Exit_25px.png"))); // NOI18N
+        btn_exit5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Exit_25px.png"))); // NOI18N
         btn_exit5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btn_exit5MousePressed(evt);
@@ -606,13 +666,13 @@ public class Home extends javax.swing.JFrame {
 
         jPanel41.setBackground(new java.awt.Color(84, 127, 206));
 
-        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
+        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Contacts_25px.png"))); // NOI18N
 
-        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Calendar_25px.png"))); // NOI18N
+        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Calendar_25px.png"))); // NOI18N
 
-        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Lock_25px.png"))); // NOI18N
+        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Lock_25px.png"))); // NOI18N
 
-        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
+        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
@@ -674,6 +734,7 @@ public class Home extends javax.swing.JFrame {
         jLabel27.setText("Dashboard");
 
         jPanel26.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel26.setForeground(new java.awt.Color(153, 0, 0));
         jPanel26.setPreferredSize(new java.awt.Dimension(150, 60));
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -932,7 +993,7 @@ public class Home extends javax.swing.JFrame {
         jTextField3.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField3.setPreferredSize(new java.awt.Dimension(2, 20));
 
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Search_18px.png"))); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Search_18px.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -963,13 +1024,13 @@ public class Home extends javax.swing.JFrame {
 
         jPanel17.setBackground(new java.awt.Color(84, 127, 206));
 
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Contacts_25px.png"))); // NOI18N
 
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Calendar_25px.png"))); // NOI18N
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Calendar_25px.png"))); // NOI18N
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Lock_25px.png"))); // NOI18N
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Lock_25px.png"))); // NOI18N
 
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1006,7 +1067,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel16.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 85, -1, 80));
 
-        btn_exit3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Exit_25px.png"))); // NOI18N
+        btn_exit3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Exit_25px.png"))); // NOI18N
         btn_exit3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btn_exit3MousePressed(evt);
@@ -1072,10 +1133,21 @@ public class Home extends javax.swing.JFrame {
 
         jComboBox6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
+        ResetBtn.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        ResetBtn.setText("Reset");
+        ResetBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ResetBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -1095,18 +1167,17 @@ public class Home extends javax.swing.JFrame {
                                     .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(FilterPackets, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ScanNet, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Load_Wireless_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(FilterPackets)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ResetBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1130,7 +1201,9 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(FilterPackets)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FilterPackets)
+                    .addComponent(ResetBtn))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
         );
@@ -1430,7 +1503,7 @@ public class Home extends javax.swing.JFrame {
         jTextField4.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField4.setPreferredSize(new java.awt.Dimension(2, 20));
 
-        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Search_18px.png"))); // NOI18N
+        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Search_18px.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -1489,6 +1562,11 @@ public class Home extends javax.swing.JFrame {
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCheckBox1.setText("Enable Email Notification");
+        jCheckBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCheckBox1MouseClicked(evt);
+            }
+        });
 
         jTextField9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
@@ -1497,14 +1575,17 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        ResetRuleBtn.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        ResetRuleBtn.setText("Reset");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1518,15 +1599,14 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField9))))
-                .addGap(15, 15, 15))
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField9)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(ResetRuleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1551,9 +1631,11 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(jButton1)
-                .addGap(41, 41, 41)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(ResetRuleBtn))
+                .addGap(39, 39, 39)
                 .addComponent(jCheckBox1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1563,7 +1645,7 @@ public class Home extends javax.swing.JFrame {
         jPanel22.setBackground(new java.awt.Color(120, 168, 252));
         jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_exit4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Exit_25px.png"))); // NOI18N
+        btn_exit4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Exit_25px.png"))); // NOI18N
         btn_exit4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btn_exit4MousePressed(evt);
@@ -1578,13 +1660,13 @@ public class Home extends javax.swing.JFrame {
 
         jPanel42.setBackground(new java.awt.Color(84, 127, 206));
 
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Contacts_25px.png"))); // NOI18N
 
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Calendar_25px.png"))); // NOI18N
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Calendar_25px.png"))); // NOI18N
 
-        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Lock_25px.png"))); // NOI18N
+        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Lock_25px.png"))); // NOI18N
 
-        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
+        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
         jPanel42.setLayout(jPanel42Layout);
@@ -1951,7 +2033,7 @@ public class Home extends javax.swing.JFrame {
         Load_Wireless_btn.setEnabled(false);
         devices = JpcapCaptor.getDeviceList();
         for (int i = 0; i < devices.length; i++) {
-            WS_lists.addItem(devices[i].description);
+            WS_lists.addItem(i+1+ ": " + devices[i].description);
         }
         WS_lists.getSelectedItem().hashCode();
         WS_lists.addItemListener(new ItemListener() {
@@ -2042,6 +2124,7 @@ public class Home extends javax.swing.JFrame {
             RuleNo++;
             rulesVector.addElement(RuleNo);
             rulesVector.addElement(jTextField1.getText());
+            RuleNameSet.add(jTextField1.getText());
             rulesVector.addElement(jComboBox2.getSelectedItem());
             rulesVector.addElement(jComboBox3.getSelectedItem());
             rulesVector.addElement(jTextField5.getText());
@@ -2052,6 +2135,7 @@ public class Home extends javax.swing.JFrame {
             rulesVector.addElement(jTextField8.getText());
             RuleAttempts.add(jTextField8.getText());
             rulesVector.addElement(jTextField7.getText());
+            RuleDescription.add(jTextField7.getText());
             rulesVector.addElement(timeStamp);
             rulesVector.addElement("Inactive");
             nRules++;
@@ -2078,10 +2162,13 @@ public class Home extends javax.swing.JFrame {
         Object val = model.getValueAt(row, col);
         //model.removeRow(index);
         model.setValueAt("Active", row, col);
+        
         if (val.toString().trim() != "Inactive") {
             model.setValueAt("Inactive", row, col);
+            saveToRuleTxt();
         } else {
             model.setValueAt("Active", row, col);
+            saveToRuleTxt();
         }
         saveToRuleTxt();
     }//GEN-LAST:event_jButton3MouseClicked
@@ -2137,6 +2224,20 @@ public class Home extends javax.swing.JFrame {
         IDS.setVisible(false);
         Alerts.setVisible(true);
     }//GEN-LAST:event_btn_2MouseClicked
+
+    private void ResetBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ResetBtnMouseClicked
+
+    private void jCheckBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox1MouseClicked
+
+        if(jCheckBox1.isSelected() == true){
+            jTextField9.setEditable(false);
+        }else{
+            jTextField9.setEditable(true);
+        }
+        
+    }//GEN-LAST:event_jCheckBox1MouseClicked
 
     private final PacketReceiver handler = new PacketReceiver() {
         @Override
@@ -2255,7 +2356,7 @@ public class Home extends javax.swing.JFrame {
 
             for (int m = 0; m < size3; m++) {
                 if (RuleStatus.get(m).trim().equals("Active")) {
-                    System.out.println(m);
+                    //System.out.println(m);
                     for (int j = 0; j < size2; j++) {
                         if (RuleIPSet.get(m).trim().equals(srcIPSetTemp.get(j).trim())) {
                             System.out.println("true");
@@ -2279,13 +2380,33 @@ public class Home extends javax.swing.JFrame {
                                     jTextArea1.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
                                     jTextArea2.append(timeStamp + " Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
                                     jTextArea2.append(timeStamp + " " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
+                                    javax.swing.JOptionPane.showMessageDialog(null,
+                                    "A suspicous attemp has been blocked\n"
+                                    + "\nSuspicous IP Address: " + RuleIPSetCompare.get(m).trim()
+                                    + "\nNumber of IP Address: 1"
+                                    + "\nProtocol: TCP"
+                                    + "\nPort Number: "+ RulePortSet.get(m).trim()
+                                    + "\nAttemps: "+ RuleAttempts.get(m).trim()
+                                    + "\nStatus: Blocked", "Notification", 2);
+                                    
+                                    if(jTextField9.getText().equals("")){
+                                        //do nothing
+                                    }else{
+                                        try {
+                                            SendAlert(m);
+                                        } catch (MessagingException ex) {
+                                            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
                                     RuleIPSet.set(m, "checked");
                                     cBlockedAttck++;
                                     cLowAttck++;
                                     jLabel56.setText(String.valueOf(cLowAttck));
                                     Block_Num.setText(String.valueOf(cBlockedAttck));
                                     //m++;
-                                    m++;
+                                    //m++;
+                                    
+                                    
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -2306,6 +2427,63 @@ public class Home extends javax.swing.JFrame {
             tabledisplay.validate();
             jPanel91.repaint();
             jPanel92.repaint();
+        }
+
+        private void SendAlert(int m) throws AddressException, MessagingException {
+           String timeStamp = new SimpleDateFormat("dd/MM/yyyy    HH:mm:ss").format(Calendar.getInstance().getTime());
+        // Step1
+        System.out.println("\n 1st ===> Setup Mail Server Properties..");
+        mailServerProperties = System.getProperties();
+        mailServerProperties.put("mail.smtp.port", "587");
+        mailServerProperties.put("mail.smtp.auth", "true");
+        mailServerProperties.put("mail.smtp.starttls.enable", "true");
+        System.out.println("Mail Server Properties have been setup successfully..");
+
+        // Step2
+        System.out.println("\n\n 2nd ===> get Mail Session..");
+        getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+        generateMailMessage = new MimeMessage(getMailSession);
+        generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(jTextField9.getText().trim()));
+        //generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("test2@crunchify.com"));
+        generateMailMessage.setSubject("Warning, A Intrusion has been detected and blocked!");
+        String emailBody = 
+                  "<br>*************************************************************************************"
+                + "<br><strong>This Email is automatically sent by Intrusion Detection System."
+                +         "<br>Please do not reply to this email.<strong>"
+                + "<br>**************************************************************************************" 
+                + "<br>"
+                + "<br>Event: A suspicous attemp has been blocked by Intrution Detection System"
+                + "<br>"
+                + "<br><hr>Suspicous IP Address: " + RuleIPSetCompare.get(m).trim()
+                + "<br>Number of IP Address: 1"
+                + "<br>Protocol: TCP"
+                + "<br>Port Number: "+ RulePortSet.get(m).trim()
+                + "<br>Attemps: "+ RuleAttempts.get(m).trim()
+                + "<br>"
+                + "<br>Triggerred by Rule: " + RuleNameSet.get(m).trim()
+                + "<br>Current Status: Implemented"
+                + "<br>Time: " + timeStamp
+                + "<br>"
+                + "<hr>"
+                + "<br> Regards, "
+                + "<br>Du Mengyu"
+                + "<br>Intrusion Detection System"
+                ;
+        
+
+        generateMailMessage.setContent(emailBody, "text/html");
+
+        System.out.println("Mail Session has been created successfully..");
+
+        // Step3
+        System.out.println("\n\n 3rd ===> Get Session and Send mail");
+        Transport transport = getMailSession.getTransport("smtp");
+
+        // Enter your correct gmail UserID and Password
+        // if you have 2FA enabled then provide App Specific Password
+        transport.connect("smtp.gmail.com", "cit.intrusiondetection@gmail.com", "gvrzqqsbztichsoh");
+        transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+        transport.close();
         }
     };
 
@@ -2603,6 +2781,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel ICMP_num;
     private javax.swing.JPanel IDS;
     private javax.swing.JButton Load_Wireless_btn;
+    private javax.swing.JButton ResetBtn;
+    private javax.swing.JButton ResetRuleBtn;
     private javax.swing.JPanel RuleConfig;
     private javax.swing.JButton ScanNet;
     private javax.swing.JLabel UDP_num;
@@ -2651,6 +2831,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -2733,11 +2915,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

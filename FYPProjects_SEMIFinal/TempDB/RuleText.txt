@@ -5,5 +5,5 @@
 5,Rule5,Microsoft,TCP,192.168.50.52,8086,Block,10,6,20180714.12:00:18,Inactive,
 6,Rule6,Microsoft,TCP,23.212.229.18,8087,Block,10,7,20180714.16:26:25,Inactive,
 7,Rule7,Microsoft,TCP,172.20.10.19,8088,Block,10,8,20180714.16:26:52,Inactive,
-1,Rule8,Microsoft,TCP,209.85.202.139,8089,Block,10,9,20180714.18:23:52,Inactive,
-1,mycit,Microsoft,TCP,54.72.5.20,8080,Block,10,10,20180714.19:14:43,Inactive,
+1,Rule8,Microsoft,TCP,209.85.202.139,8089,Block,10,9,20180714.18:23:52,Active,
+1,mycit,Microsoft,TCP,54.72.5.20,8080,Block,10,10,20180714.19:14:43,Active,

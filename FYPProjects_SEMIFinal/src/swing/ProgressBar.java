@@ -1,104 +1,98 @@
 package swing;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Du
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRootPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-public class ProgressBar implements ActionListener, ChangeListener {
+public class ProgressBar {
 
-    JFrame frame = null;
-    JProgressBar progressbar;
-    JLabel label;
     Timer timer;
-    JButton b;
+    JProgressBar jpbFileLoading;
 
-    
-
-    
     public ProgressBar() {
-        frame = new JFrame("Intrusion Detection System");
-        frame.setBounds(100, 100, 400, 130);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container contentPanel = frame.getContentPane();
-        label = new JLabel("", JLabel.CENTER);
-        progressbar = new JProgressBar();
-        progressbar.setOrientation(JProgressBar.HORIZONTAL);
-        progressbar.setMinimum(0);
-        progressbar.setMaximum(100);
-        progressbar.setValue(0);
-        progressbar.setStringPainted(true);
-        progressbar.addChangeListener(this);
-        progressbar.setPreferredSize(new Dimension(300, 20));
-        progressbar.setBorderPainted(true);
-        progressbar.setBackground(Color.white);
-
-        JPanel panel = new JPanel();
-        b = new JButton("Open System");
-        b.setForeground(Color.blue);
-        b.addActionListener(this);
-        panel.add(b);
-        timer = new Timer(100, this);
-        contentPanel.add(panel, BorderLayout.NORTH);
-        contentPanel.add(progressbar, BorderLayout.CENTER);
-        contentPanel.add(label, BorderLayout.SOUTH);
-        //frame.pack();
-        frame.setVisible(true);
-
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b) {
-            timer.start();
-        }
-        if (e.getSource() == timer) {
-            int value = progressbar.getValue();
-            if (value < 100) {
-                progressbar.setValue(++value);
-            } else {
-                timer.stop();
-                frame.dispose();
+        JFrame jf = new JFrame("Progress Bar");
+        /**
+         * Create a Progress bar, the direction is horilzation,min value is
+         * 0,max value is 100,the default value is 0
+         */
+        jpbFileLoading = new JProgressBar();
+        jpbFileLoading.setStringPainted(true);  //Set the progress bar style,the default value is false  
+        jpbFileLoading.setBorderPainted(false); 
+        jpbFileLoading.setPreferredSize(new Dimension(100, 40)); //设置首选大小  
+        timer = new Timer(50, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int loadingValue = jpbFileLoading.getValue();
+                if (loadingValue < 100) {
+                    jpbFileLoading.setValue(++loadingValue);
+                    
+                } else {
+                    timer.stop();
+                }
+                
             }
+        });
+        timer.start();
+        
+        JProgressBar jpbFileLoadingIndeterminate = new JProgressBar();
+        jpbFileLoadingIndeterminate.setIndeterminate(true); //设置进度条为不确定模式,默认为确定模式  
+        jpbFileLoadingIndeterminate.setStringPainted(true);
+        jpbFileLoadingIndeterminate.setPreferredSize(new Dimension(100, 40)); 
+        jpbFileLoadingIndeterminate.setString("System Loading......");
+        
+        JLabel InLoadingText = new JLabel("Initializing System Componements");
+        InLoadingText.setHorizontalAlignment(SwingConstants.CENTER);
+	InLoadingText.setFont(new Font("Tahoma", Font.PLAIN, 24));
+	InLoadingText.setForeground(new Color(0, 0, 0));
+        InLoadingText.setBounds(20, 100, 300, 200);
+                
+        jf.add(jpbFileLoading, BorderLayout.NORTH);
+        jf.add(InLoadingText);
+        jf.add(jpbFileLoadingIndeterminate, BorderLayout.SOUTH);
+        jf.setSize(500, 300);
+        jf.setLocationRelativeTo(null); //居中显示  
+        jf.setUndecorated(true);        //禁用此窗体的装饰  
+        jf.getRootPane().setWindowDecorationStyle(JRootPane.NONE); //采用指定的窗体装饰风格  
+        jf.setVisible(true);
+        
+        
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-    }
-
-    public void stateChanged(ChangeEvent e1) {
-        int value = progressbar.getValue();
-        if (e1.getSource() == progressbar) {
-            label.setText("Now the Progress is " + Integer.toString(value) + "%");
-                //        
-//        jTextArea2.append(Home.timeStamp + " Program Actived");
-//        jTextArea2.append(Home.timeStamp + " Initializing System Components");
-//        initComponents();
-//        jTextArea2.append(Home.timeStamp + " Initializing Intrusion Detection System");
-//        initIDS();
-//        jTextArea2.append(Home.timeStamp + " Intrusion Detection System Initialized");
-//        jTextArea2.append(timeStamp + " Initializing Rule Configuration Panel");
-//        initRuleConfiguration();
-//        jTextArea2.append(timeStamp + " Rule Configuration Panel Initialized");
-//        jTextArea2.append(timeStamp + " Initializing System Logs");
-//        intAlerts();
-//        jTextArea2.append(timeStamp + " System Logs Initialized");
-//        jTextArea2.append(timeStamp + " Initializing other Components");
-            label.setForeground(Color.blue);
+        jpbFileLoadingIndeterminate.setIndeterminate(false); //设置进度条为确定模式,即常规模式,否则那个条还会走来走去  
+        jpbFileLoadingIndeterminate.setString("Finish System Loading..");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
+     
+        jf.setVisible(false); 
+        jf.dispose();        
+        jf = null;            
     }
 
     public static void main(String[] args) {
-        ProgressBar app = new ProgressBar();
+        new ProgressBar();
     }
-
 }

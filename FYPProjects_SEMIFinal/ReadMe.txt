@@ -2,10 +2,18 @@
 
 2?jpcap?????lib??,?????,jpcap.dll?jpcap.jar?
 
+
+
+
+
 jpcap.dll-->JAVA????/jre1.6.0_06/bin (JRE??)
+
+
 
 jpcap.jar-->JAVA????/jre1.6.0_06/lib/ext  (JRE??) ? JAVA????/jdk1.6.0_05/jre/lib/ext  (JDK??)
 
  
 
-3?eclipse??jpcap.jar??windows->preferences->Java->Installed JRES-> select jdk and input edit button-->add external jars
+3?eclipse??jpcap.jar??
+
+windows->preferences->Java->Installed JRES-> select jdk and input edit button-->add external jars

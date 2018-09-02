@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
@@ -50,12 +51,15 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
 
 /**
  *
  * @author Du
  */
 public class Home extends javax.swing.JFrame {
+
+    boolean flag = false;
 
     private static final String RULEFILENAME = "C:\\Users\\du\\Desktop\\IDS\\Java_Intrusion-Detection-System-master\\"
             + "FYPProjects_SEMIFinal\\TempDB\\RuleText.txt";
@@ -98,6 +102,7 @@ public class Home extends javax.swing.JFrame {
     static Properties mailServerProperties;
     static Session getMailSession;
     static MimeMessage generateMailMessage;
+
     List<String> srcIPSet = new ArrayList<>();
     List<String> destIPSet = new ArrayList<>();
     List<String> UnknownIPSet = new ArrayList<>();
@@ -115,6 +120,17 @@ public class Home extends javax.swing.JFrame {
     List<String> RuleAttempts = new ArrayList<>();
     List<String> RuleDescription = new ArrayList<>();
     List<String> RuleStatus = new ArrayList<>();
+
+    List<String> RuleNameSet2 = new ArrayList<>();
+    List<String> RulePortSet2 = new ArrayList<>();
+    List<String> RuleStatus2 = new ArrayList<>();
+
+    List<String> RuleNameSet3 = new ArrayList<>();
+    List<String> RulePortSet3 = new ArrayList<>();
+    List<String> RuleStatus3 = new ArrayList<>();
+
+    List<String> RuleNameSet4 = new ArrayList<>();
+    List<String> RuleStatus4 = new ArrayList<>();
 
     static String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     DefaultComboBoxModel model1 = new DefaultComboBoxModel();
@@ -140,7 +156,6 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         initIDS();
         initRuleConfiguration();
-        intAlerts();
         setColor(btn_1);
         ind_1.setOpaque(true);
         resetColor(new JPanel[]{btn_2, btn_3, btn_4}, new JPanel[]{ind_2, ind_3, ind_4});
@@ -288,13 +303,13 @@ public class Home extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         ResetRuleBtn = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
-        btn_exit4 = new javax.swing.JLabel();
-        jPanel42 = new javax.swing.JPanel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
-        jLabel46 = new javax.swing.JLabel();
+        btn_exit4 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -908,11 +923,10 @@ public class Home extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                        .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -940,7 +954,7 @@ public class Home extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 496, Short.MAX_VALUE))
+                .addGap(0, 507, Short.MAX_VALUE))
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                     .addGap(0, 230, Short.MAX_VALUE)
@@ -990,16 +1004,6 @@ public class Home extends javax.swing.JFrame {
         IDS.setPreferredSize(new java.awt.Dimension(1480, 800));
 
         jPanel14.setBackground(new java.awt.Color(71, 120, 197));
-        jPanel14.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel14MouseDragged(evt);
-            }
-        });
-        jPanel14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel14MousePressed(evt);
-            }
-        });
 
         jTextField3.setBackground(new java.awt.Color(123, 156, 225));
         jTextField3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1014,7 +1018,7 @@ public class Home extends javax.swing.JFrame {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(1275, Short.MAX_VALUE)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel28)
@@ -1427,13 +1431,11 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)))
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE))
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1463,8 +1465,8 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel18Layout.createSequentialGroup()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 100, Short.MAX_VALUE)))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1481,13 +1483,15 @@ public class Home extends javax.swing.JFrame {
         IDS.setLayout(IDSLayout);
         IDSLayout.setHorizontalGroup(
             IDSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1480, Short.MAX_VALUE)
+            .addGap(0, 1484, Short.MAX_VALUE)
             .addGroup(IDSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(IDSLayout.createSequentialGroup()
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 1172, Short.MAX_VALUE))
-                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 1176, Short.MAX_VALUE))
+                .addGroup(IDSLayout.createSequentialGroup()
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         IDSLayout.setVerticalGroup(
             IDSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1507,16 +1511,6 @@ public class Home extends javax.swing.JFrame {
         RuleConfig.setPreferredSize(new java.awt.Dimension(1480, 800));
 
         jPanel20.setBackground(new java.awt.Color(71, 120, 197));
-        jPanel20.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel20MouseDragged(evt);
-            }
-        });
-        jPanel20.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel20MousePressed(evt);
-            }
-        });
 
         jTextField4.setBackground(new java.awt.Color(123, 156, 225));
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
@@ -1580,6 +1574,11 @@ public class Home extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton1.setText("Filter Rules");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCheckBox1.setText("Enable Email Notification");
@@ -1666,6 +1665,51 @@ public class Home extends javax.swing.JFrame {
         jPanel22.setBackground(new java.awt.Color(120, 168, 252));
         jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel23.setBackground(new java.awt.Color(84, 127, 206));
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Contacts_25px.png"))); // NOI18N
+
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Calendar_25px.png"))); // NOI18N
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Lock_25px.png"))); // NOI18N
+
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel36)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel32)
+                .addGap(45, 45, 45)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(jLabel35)
+                .addGap(40, 40, 40))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator4)
+                .addContainerGap())
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel22.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 85, -1, 80));
+
         btn_exit4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Exit_25px.png"))); // NOI18N
         btn_exit4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1673,51 +1717,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jPanel22.add(btn_exit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, 46));
-
-        jPanel42.setBackground(new java.awt.Color(84, 127, 206));
-
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Contacts_25px.png"))); // NOI18N
-
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Calendar_25px.png"))); // NOI18N
-
-        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Lock_25px.png"))); // NOI18N
-
-        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/images/icons8_Secured_Letter_25px_2.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
-        jPanel42.setLayout(jPanel42Layout);
-        jPanel42Layout.setHorizontalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel42Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel46)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel36)
-                .addGap(45, 45, 45)
-                .addComponent(jLabel37)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(jLabel38)
-                .addGap(40, 40, 40))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel42Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator5)
-                .addContainerGap())
-        );
-        jPanel42Layout.setVerticalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel42Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel22.add(jPanel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 85, -1, 80));
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel49.setForeground(new java.awt.Color(255, 255, 255));
@@ -1728,8 +1727,8 @@ public class Home extends javax.swing.JFrame {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2034,18 +2033,6 @@ public class Home extends javax.swing.JFrame {
     private void jPanel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MousePressed
     }//GEN-LAST:event_jPanel8MousePressed
 
-    private void jPanel14MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseDragged
-    }//GEN-LAST:event_jPanel14MouseDragged
-
-    private void jPanel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MousePressed
-    }//GEN-LAST:event_jPanel14MousePressed
-
-    private void jPanel20MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseDragged
-    }//GEN-LAST:event_jPanel20MouseDragged
-
-    private void jPanel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MousePressed
-    }//GEN-LAST:event_jPanel20MousePressed
-
     private void Load_Wireless_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Load_Wireless_btnMouseClicked
         WS_lists.removeAllItems();
         Load_Wireless_btn.setEnabled(false);
@@ -2085,52 +2072,51 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_Load_Wireless_btnMouseClicked
 
     private void ScanNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanNetActionPerformed
-        ScanNet.setText("Stop");
 
-        for (count = 0; count < tablemodelRule.getRowCount(); count++) {
-            //System.out.println(tablemodelRule.getRowCount());
-            RulePortSet.add(tablemodelRule.getValueAt(count, 5).toString());
-            RuleAttempts.add(tablemodelRule.getValueAt(count, 7).toString());
+        if (flag == false) {
+            for (count = 0; count < tablemodelRule.getRowCount(); count++) {
+                //System.out.println(tablemodelRule.getRowCount());
+                RulePortSet.add(tablemodelRule.getValueAt(count, 5).toString());
+                RuleAttempts.add(tablemodelRule.getValueAt(count, 7).toString());
+                RuleStatus.add(tablemodelRule.getValueAt(count, 10).toString());
+                
+                if (RuleIPSet.contains(tablemodelRule.getValueAt(count, 4).toString())
+                        || RuleIPSetCompare.contains(tablemodelRule.getValueAt(count, 4).toString())) {
 
-            // if (tablemodelRule.getValueAt(count, 10).toString() != "Implemented") {
-            //}
-            RuleStatus.add(tablemodelRule.getValueAt(count, 10).toString());
-            // System.out.println(RuleStatus);
-            if (RuleIPSet.contains(tablemodelRule.getValueAt(count, 4).toString())
-                    || RuleIPSetCompare.contains(tablemodelRule.getValueAt(count, 4).toString())) {
-
-            } else {
-                RuleNameSet.add(tablemodelRule.getValueAt(count, 1).toString());
-                RuleIPSet.add("/" + tablemodelRule.getValueAt(count, 4).toString());
-                RuleIPSetCompare.add(tablemodelRule.getValueAt(count, 4).toString());
+                } else {
+                    RuleNameSet.add(tablemodelRule.getValueAt(count, 1).toString());
+                    RuleIPSet.add("/" + tablemodelRule.getValueAt(count, 4).toString());
+                    RuleIPSetCompare.add(tablemodelRule.getValueAt(count, 4).toString());
+                }
             }
-        }
 
-        devices = JpcapCaptor.getDeviceList();
-        int i = WS_lists.getSelectedIndex();
-        try {
-            jpcap = JpcapCaptor.openDevice(devices[i], 65535, false, 500);
-            if (captureThread != null) {
-                return;
-            }
-            captureThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (captureThread != null) {
-                        jpcap.processPacket(2, handler);
+            devices = JpcapCaptor.getDeviceList();
+            int i = WS_lists.getSelectedIndex();
+            try {
+                jpcap = JpcapCaptor.openDevice(devices[i], 65535, false, 500);
+                if (captureThread != null) {
+                    return;
+                }
+                captureThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (captureThread != null) {
+                            jpcap.processPacket(2, handler);
+
+                        }
 
                     }
-
-                }
-            });
-            captureThread.setPriority(Thread.MIN_PRIORITY);
-            captureThread.start();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                });
+                captureThread.setPriority(Thread.MIN_PRIORITY);
+                captureThread.start();
+                ScanNet.setText("Stop");
+                flag = true;
+            } catch (IOException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            flag = false;
         }
-
-
     }//GEN-LAST:event_ScanNetActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -2157,6 +2143,7 @@ public class Home extends javax.swing.JFrame {
             RuleDescription.add(jTextField7.getText());
             rulesVector.addElement(timeStamp);
             rulesVector.addElement("Inactive");
+            nRules = parseInt(jLabel59.getText().toString().trim());
             nRules++;
         } else {
             JOptionPane.showMessageDialog(null, "Please enter all the details", "Message", JOptionPane.ERROR_MESSAGE);
@@ -2165,7 +2152,6 @@ public class Home extends javax.swing.JFrame {
         RuleRows.addElement(rulesVector);
         tabledisplayRules.addNotify();
         saveToRuleTxt();
-        addRuleList();
         jTextField1.setText("");
         jTextField5.setText("");
         jTextField6.setText("");
@@ -2177,31 +2163,52 @@ public class Home extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         int col = tabledisplayRules.getSelectedColumn();
         int row = tabledisplayRules.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel) tabledisplayRules.getModel();
-        Object val = model.getValueAt(row, col);
-        //model.removeRow(index);
-        //model.setValueAt("Active", row, col);
-
-        Object ruleName = model.getValueAt(row, 1);
-
+        DefaultTableModel model2 = (DefaultTableModel) tabledisplayRules.getModel();
+        Object val = model2.getValueAt(row, 10);
+        System.out.println(val);
+        Object ruleName = model2.getValueAt(row, 1);
+        jTextArea4.setText("");
         if ("Implemented".equals(val.toString().trim())) {
             System.out.println(ruleName);
-            model.setValueAt("Inactive", row, col);
+            model2.setValueAt("Inactive", row, 10);
             String command = "netsh advfirewall firewall delete rule name=" + ruleName;
             Runtime runtime = Runtime.getRuntime();
             try {
                 Process process = runtime.exec(command);
                 System.out.println("removed rule from windows firewall");
                 jTextArea1.append(timeStamp + " ---> Rule: " + ruleName + " has been deactivated. status: Inactive" + "\n");
+                jTextArea2.append(timeStamp + " ---> Rule: " + ruleName + " has been deactivated. status: Inactive" + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else if ("Inactive".equals(val.toString().trim())) {
-            model.setValueAt("Active", row, col);
-            jTextArea4.append("Rule: " + ruleName + " ==> Status: Active" + "\n");
-        } else {
-            model.setValueAt("Inactive", row, col);
+            model2.setValueAt("Active", row, 10);
+//            tablemodelRule = new DefaultTableModel();
+//            tablemodelRule.setDataVector(RuleRows, RuleColumns);
+//            tabledisplayRules = new JTable(tablemodelRule);
+            for (count = 0; count < tablemodelRule.getRowCount(); count++) {
+                //System.out.println(tablemodelRule.getRowCount());
+                RuleNameSet4.add(tablemodelRule.getValueAt(count, 1).toString());
+                RuleStatus4.add(tablemodelRule.getValueAt(count, 10).toString());
+            }
+            for (int p = 0; p < RuleStatus4.size(); p++) {
+                if (RuleStatus4.get(p).toString().trim().equals("Active")) {
+                    jTextArea4.append("Rule: " + RuleNameSet4.get(p) + " ==> Status: Active" + "\n");
+                }
+            }
+            jTextArea2.append(timeStamp + " ---> Rule: " + ruleName + " ==> Status: Active" + "\n");
+        } else if ("Active".equals(val.toString().trim())) {
+            model2.setValueAt("Inactive", row, 10);
+            tablemodelRule = new DefaultTableModel();
+            tablemodelRule.setDataVector(RuleRows, RuleColumns);
+            tabledisplayRules = new JTable(tablemodelRule);
+
+            for (int p = 0; p < RuleStatus4.size(); p++) {
+                if (RuleStatus4.get(p).toString().trim().equals("Active")) {
+                    jTextArea4.append("Rule: " + RuleNameSet4.get(p) + " ==> Status: Active" + "\n");
+                }
+            }
         }
         saveToRuleTxt();
     }//GEN-LAST:event_jButton3MouseClicked
@@ -2232,9 +2239,6 @@ public class Home extends javax.swing.JFrame {
     private void btn_exit3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit3MousePressed
         System.exit(0);
     }//GEN-LAST:event_btn_exit3MousePressed
-
-    private void btn_exit4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit4MousePressed
-    }//GEN-LAST:event_btn_exit4MousePressed
 
     private void btn_exit5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit5MousePressed
     }//GEN-LAST:event_btn_exit5MousePressed
@@ -2272,9 +2276,40 @@ public class Home extends javax.swing.JFrame {
         int[] rows = tabledisplayRules.getSelectedRows();
         for (int i = 0; i < rows.length; i++) {
             model.removeRow(rows[i] - i);
+            jLabel59.setText(String.valueOf(tablemodelRule.getRowCount()));
             saveToRuleTxt();
         }
     }//GEN-LAST:event_DeleteRuleMouseClicked
+
+    private void btn_exit4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exit4MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_exit4MousePressed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        RowFilter<Object, Object> rf = null;
+        List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+        if (jComboBox7.getSelectedItem().toString().trim() != "") {
+            filters.add(RowFilter.regexFilter(jComboBox7.getSelectedItem().toString().trim(), 2));
+        } else if (jComboBox8.getSelectedItem().toString().trim() != "") {
+            filters.add(RowFilter.regexFilter(jComboBox8.getSelectedItem().toString().trim(), 3));
+        } else if (jComboBox9.getSelectedItem().toString().trim() != "") {
+            filters.add(RowFilter.regexFilter(jComboBox9.getSelectedItem().toString().trim(), 5));
+        } else if (jComboBox10.getSelectedItem().toString().trim() != "") {
+            filters.add(RowFilter.regexFilter(jComboBox10.getSelectedItem().toString().trim(), 6));
+        } else if (jComboBox11.getSelectedItem().toString().trim() != "") {
+            filters.add(RowFilter.regexFilter(jComboBox11.getSelectedItem().toString().trim(), 10));
+        }
+
+        try {
+            rf = RowFilter.orFilter(filters);
+        } catch (java.util.regex.PatternSyntaxException e) {
+            return;
+        }
+        TableRowSorter<TableModel> sorter5 = new TableRowSorter<>(tablemodelRule);
+        sorter5.setRowFilter(rf);
+        tabledisplayRules.setRowSorter(sorter5);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     private final PacketReceiver handler = new PacketReceiver() {
         @Override
@@ -2283,11 +2318,10 @@ public class Home extends javax.swing.JFrame {
             try {
                 Vector r = new Vector();
                 No++;
-
-                if (packet instanceof TCPPacket) {
-                    tcp = (TCPPacket) packet;
                     r.addElement(No);
                     r.addElement(timeStamp.toString());
+                if (packet instanceof TCPPacket) {
+                    tcp = (TCPPacket) packet;
                     r.addElement(tcp.src_ip.toString());
                     r.addElement(tcp.dst_ip.toString());
                     r.addElement("TCP");
@@ -2297,10 +2331,7 @@ public class Home extends javax.swing.JFrame {
                     r.addElement(tcp.offset);
 
                 } else if (packet instanceof UDPPacket) {
-
                     udp = (UDPPacket) packet;
-                    r.addElement(No);
-                    r.addElement(timeStamp.toString());
                     r.addElement(udp.src_ip.toString());
                     r.addElement(udp.dst_ip.toString());
                     r.addElement("UDP");
@@ -2311,8 +2342,6 @@ public class Home extends javax.swing.JFrame {
 
                 } else if (packet instanceof ICMPPacket) {
                     icmp = (ICMPPacket) packet;
-                    r.addElement(No);
-                    r.addElement(timeStamp.toString());
                     r.addElement(icmp.src_ip.toString());
                     r.addElement(icmp.dst_ip.toString());
                     r.addElement("ICMP");
@@ -2399,6 +2428,7 @@ public class Home extends javax.swing.JFrame {
                             IPCounter++;
                             if (IPCounter <= Integer.parseInt((RuleAttempts.get(m).trim()))) {
                                 jTextArea2.append(timeStamp + " ---> " + RuleIPSet.get(m).trim() + " is detected in the network traffic, Times: " + IPCounter + "\n");
+                                //jTextArea3.append(timeStamp + " : " + RuleIPSet.get(m).trim() + " is detected: "+ IPCounter + "\n");
                             } else {
                                 String command = "netsh advfirewall firewall add rule name="
                                         + RuleNameSet.get(m).trim() + " Dir=Out Action=Block RemoteIP=" + RuleIPSetCompare.get(m).trim();
@@ -2412,7 +2442,10 @@ public class Home extends javax.swing.JFrame {
                                     model.setValueAt("Implemented", row, col);
                                     saveToRuleTxt();
                                     jTextArea1.append(timeStamp + " ---> Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
+                                    //jTextArea3.append(timeStamp + " : " + RuleIPSet.get(m).trim() + " is added into the block list\n");
                                     jTextArea1.append(timeStamp + " ---> " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
+                                    jTextArea3.append(timeStamp + "\n" + "Rule: " + RuleNameSet.get(m).trim() + " " + RuleIPSet.get(m).trim() + ":Blocked" + "\n");
+                                    jTextArea3.append("--------------------------------------------");
                                     jTextArea2.append(timeStamp + " ---> Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
                                     jTextArea2.append(timeStamp + " ---> " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
                                     javax.swing.JOptionPane.showMessageDialog(null,
@@ -2467,14 +2500,16 @@ public class Home extends javax.swing.JFrame {
             String timeStamp = new SimpleDateFormat("dd/MM/yyyy    HH:mm:ss").format(Calendar.getInstance().getTime());
             // Step1
             System.out.println("\n 1st ===> Setup Mail Server Properties..");
+            jTextArea2.append("\n 1st ===> Setup Mail Server Properties..");
             mailServerProperties = System.getProperties();
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
             mailServerProperties.put("mail.smtp.starttls.enable", "true");
             System.out.println("Mail Server Properties have been setup successfully..");
-
+            jTextArea2.append("Mail Server Properties have been setup successfully..");
             // Step2
             System.out.println("\n\n 2nd ===> get Mail Session..");
+            jTextArea2.append("\n\n 2nd ===> get Mail Session..");
             getMailSession = Session.getDefaultInstance(mailServerProperties, null);
             generateMailMessage = new MimeMessage(getMailSession);
             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(jTextField9.getText().trim()));
@@ -2506,9 +2541,10 @@ public class Home extends javax.swing.JFrame {
             generateMailMessage.setContent(emailBody, "text/html");
 
             System.out.println("Mail Session has been created successfully..");
-
+            jTextArea2.append("Mail Session has been created successfully..");
             // Step3
             System.out.println("\n\n 3rd ===> Get Session and Send mail");
+            jTextArea2.append("Mail Session has been created successfully..");
             Transport transport = getMailSession.getTransport("smtp");
 
             // Enter your correct gmail UserID and Password
@@ -2516,6 +2552,7 @@ public class Home extends javax.swing.JFrame {
             transport.connect("smtp.gmail.com", "cit.intrusiondetection@gmail.com", "gvrzqqsbztichsoh");
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
+            jTextArea2.append("Email has been sent out..");
         }
     };
 
@@ -2538,7 +2575,8 @@ public class Home extends javax.swing.JFrame {
     private void initRuleConfiguration() {
         devices = JpcapCaptor.getDeviceList();
         for (int i = 0; i < devices.length; i++) {
-            jComboBox2.addItem(devices[i].description);
+            jComboBox2.addItem(i + 1 + ": " + devices[i].description);
+            jComboBox7.addItem(i + 1 + ": " + devices[i].description);
         }
 
         jPanel4.setLayout(new BorderLayout());
@@ -2581,7 +2619,21 @@ public class Home extends javax.swing.JFrame {
         tablemodelRule = new DefaultTableModel();
         tablemodelRule.setDataVector(RuleRows, RuleColumns);
         tabledisplayRules = new JTable(tablemodelRule);
-
+//        System.out.println(tabledisplayRules.getRowCount());
+//        System.out.println(tabledisplayRules.getValueAt(count, 1).toString());
+        for (count = 0; count < tabledisplayRules.getRowCount(); count++) {
+            RuleNameSet3.add(tabledisplayRules.getValueAt(count, 1).toString());
+            RulePortSet3.add(tabledisplayRules.getValueAt(count, 5).toString());
+            RuleStatus3.add(tabledisplayRules.getValueAt(count, 10).toString());
+        }
+        //System.out.println(RuleStatus);
+        jLabel59.setText(String.valueOf(tabledisplayRules.getRowCount()));
+        for (int p = 0; p < RulePortSet3.size(); p++) {
+            jComboBox9.addItem(RulePortSet3.get(p));
+            if (RuleStatus3.get(p).toString().trim().equals("Active")) {
+                jTextArea4.append("Rule: " + RuleNameSet3.get(p) + " ==> Status: Active" + "\n");
+            }
+        }
         tabledisplayRules.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabledisplayRules.getColumnModel().getColumn(0).setPreferredWidth(65);
         tabledisplayRules.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -2650,14 +2702,6 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
-    private void RuleTextToJtable() {
-
-    }
-
-    private void ReadFromRuleTxtToRuleTable() {
-
-    }
-
     private void UpdateHomeGrpahic() {
         dataset.setValue("TCP", ctcp);
         dataset.setValue("UDP", cudp);
@@ -2713,10 +2757,6 @@ public class Home extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void addRuleList() {
-
     }
 
     /**
@@ -2839,10 +2879,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -2850,7 +2891,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
@@ -2884,6 +2924,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
@@ -2904,7 +2945,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
-    private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel5;
@@ -2917,7 +2957,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
@@ -2936,7 +2976,4 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel tcp_num;
     // End of variables declaration//GEN-END:variables
 
-    private void intAlerts() {
-
-    }
 }

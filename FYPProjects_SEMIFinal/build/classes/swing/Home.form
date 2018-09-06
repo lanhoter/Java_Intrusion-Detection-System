@@ -302,7 +302,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Intrusion Detection"/>
+                <Property name="text" type="java.lang.String" value="Introsion Deteciton"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -574,7 +574,7 @@
                           <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
                           <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jScrollPane5" pref="172" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" pref="176" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -785,7 +785,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="501" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="507" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -1584,7 +1584,7 @@
                               <Component id="ResetBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="231" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="235" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2224,7 +2224,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel24" pref="1171" max="32767" attributes="0"/>
+                      <Component id="jPanel24" pref="1172" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel20" max="32767" attributes="0"/>
               </Group>
@@ -2412,7 +2412,7 @@
                           <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jTextField9" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="110" max="32767" attributes="0"/>
+                          <EmptySpace pref="112" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

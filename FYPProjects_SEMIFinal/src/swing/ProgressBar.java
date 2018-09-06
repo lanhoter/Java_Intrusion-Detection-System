@@ -37,7 +37,7 @@ public class ProgressBar {
         jpbFileLoading = new JProgressBar();
         jpbFileLoading.setStringPainted(true);  //Set the progress bar style,the default value is false  
         jpbFileLoading.setBorderPainted(false);
-        jpbFileLoading.setPreferredSize(new Dimension(100, 40));   
+        jpbFileLoading.setPreferredSize(new Dimension(100, 40));
         timer = new Timer(50, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int loadingValue = jpbFileLoading.getValue();
@@ -53,7 +53,7 @@ public class ProgressBar {
         timer.start();
 
         JProgressBar jpbFileLoadingIndeterminate = new JProgressBar();
-        jpbFileLoadingIndeterminate.setIndeterminate(true);   
+        jpbFileLoadingIndeterminate.setIndeterminate(true);
         jpbFileLoadingIndeterminate.setStringPainted(true);
         jpbFileLoadingIndeterminate.setPreferredSize(new Dimension(100, 40));
         jpbFileLoadingIndeterminate.setString("System Loading......");
@@ -68,9 +68,9 @@ public class ProgressBar {
         jf.add(InLoadingText);
         jf.add(jpbFileLoadingIndeterminate, BorderLayout.SOUTH);
         jf.setSize(500, 300);
-        jf.setLocationRelativeTo(null);   
-        jf.setUndecorated(true);         
-        jf.getRootPane().setWindowDecorationStyle(JRootPane.NONE);   
+        jf.setLocationRelativeTo(null);
+        jf.setUndecorated(true);
+        jf.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         jf.setVisible(true);
 
         try {
@@ -78,7 +78,7 @@ public class ProgressBar {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        jpbFileLoadingIndeterminate.setIndeterminate(false); 
+        jpbFileLoadingIndeterminate.setIndeterminate(false);
         jpbFileLoadingIndeterminate.setString("Finish System Loading..");
         try {
             Thread.sleep(2000);

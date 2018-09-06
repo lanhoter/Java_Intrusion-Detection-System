@@ -132,7 +132,7 @@ public class Home extends javax.swing.JFrame {
     List<String> RuleNameSet4 = new ArrayList<>();
     List<String> RuleStatus4 = new ArrayList<>();
 
-    static String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     DefaultComboBoxModel model1 = new DefaultComboBoxModel();
 
     private JPanel jPanel91;
@@ -404,7 +404,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(HomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(ind_1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+            .addComponent(ind_1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
         );
 
         side_pane.add(btn_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 260, -1));
@@ -451,7 +451,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(ind_2, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+            .addComponent(ind_2, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
         );
 
         side_pane.add(btn_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 260, -1));
@@ -480,7 +480,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Intrusion Detection");
+        jLabel10.setText("Introsion Deteciton");
 
         javax.swing.GroupLayout btn_3Layout = new javax.swing.GroupLayout(btn_3);
         btn_3.setLayout(btn_3Layout);
@@ -545,7 +545,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(ind_4, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+            .addComponent(ind_4, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
         );
 
         side_pane.add(btn_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 260, -1));
@@ -925,7 +925,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                     .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 110, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1906,7 +1906,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteRule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setLayout(new java.awt.BorderLayout());
@@ -2074,12 +2074,16 @@ public class Home extends javax.swing.JFrame {
     private void ScanNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScanNetActionPerformed
 
         if (flag == false) {
+            DefaultTableModel model = (DefaultTableModel) tabledisplay.getModel();
+            model.setRowCount(0);
+            RuleStatus.clear();
+            srcIPSetTemp.clear();
             for (count = 0; count < tablemodelRule.getRowCount(); count++) {
                 //System.out.println(tablemodelRule.getRowCount());
                 RulePortSet.add(tablemodelRule.getValueAt(count, 5).toString());
                 RuleAttempts.add(tablemodelRule.getValueAt(count, 7).toString());
                 RuleStatus.add(tablemodelRule.getValueAt(count, 10).toString());
-                
+
                 if (RuleIPSet.contains(tablemodelRule.getValueAt(count, 4).toString())
                         || RuleIPSetCompare.contains(tablemodelRule.getValueAt(count, 4).toString())) {
 
@@ -2116,6 +2120,8 @@ public class Home extends javax.swing.JFrame {
             }
         } else {
             flag = false;
+            captureThread = null;
+            ScanNet.setText("Scan Network");
         }
     }//GEN-LAST:event_ScanNetActionPerformed
 
@@ -2164,10 +2170,11 @@ public class Home extends javax.swing.JFrame {
         int col = tabledisplayRules.getSelectedColumn();
         int row = tabledisplayRules.getSelectedRow();
         DefaultTableModel model2 = (DefaultTableModel) tabledisplayRules.getModel();
+        String timeStamp2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         Object val = model2.getValueAt(row, 10);
         System.out.println(val);
         Object ruleName = model2.getValueAt(row, 1);
-        jTextArea4.setText("");
+
         if ("Implemented".equals(val.toString().trim())) {
             System.out.println(ruleName);
             model2.setValueAt("Inactive", row, 10);
@@ -2176,40 +2183,33 @@ public class Home extends javax.swing.JFrame {
             try {
                 Process process = runtime.exec(command);
                 System.out.println("removed rule from windows firewall");
-                jTextArea1.append(timeStamp + " ---> Rule: " + ruleName + " has been deactivated. status: Inactive" + "\n");
-                jTextArea2.append(timeStamp + " ---> Rule: " + ruleName + " has been deactivated. status: Inactive" + "\n");
+                jTextArea1.append(timeStamp2 + " ---> Rule: " + ruleName + " has been deactivated. status: Inactive" + "\n");
+                jTextArea2.append(timeStamp2 + " ---> Rule: " + ruleName + " has been deactivated. status: Inactive" + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else if ("Inactive".equals(val.toString().trim())) {
             model2.setValueAt("Active", row, 10);
-//            tablemodelRule = new DefaultTableModel();
-//            tablemodelRule.setDataVector(RuleRows, RuleColumns);
-//            tabledisplayRules = new JTable(tablemodelRule);
-            for (count = 0; count < tablemodelRule.getRowCount(); count++) {
-                //System.out.println(tablemodelRule.getRowCount());
-                RuleNameSet4.add(tablemodelRule.getValueAt(count, 1).toString());
-                RuleStatus4.add(tablemodelRule.getValueAt(count, 10).toString());
-            }
-            for (int p = 0; p < RuleStatus4.size(); p++) {
-                if (RuleStatus4.get(p).toString().trim().equals("Active")) {
-                    jTextArea4.append("Rule: " + RuleNameSet4.get(p) + " ==> Status: Active" + "\n");
-                }
-            }
-            jTextArea2.append(timeStamp + " ---> Rule: " + ruleName + " ==> Status: Active" + "\n");
         } else if ("Active".equals(val.toString().trim())) {
             model2.setValueAt("Inactive", row, 10);
-            tablemodelRule = new DefaultTableModel();
-            tablemodelRule.setDataVector(RuleRows, RuleColumns);
-            tabledisplayRules = new JTable(tablemodelRule);
+        }
 
-            for (int p = 0; p < RuleStatus4.size(); p++) {
-                if (RuleStatus4.get(p).toString().trim().equals("Active")) {
-                    jTextArea4.append("Rule: " + RuleNameSet4.get(p) + " ==> Status: Active" + "\n");
-                }
+        RuleNameSet4.clear();
+        RuleStatus4.clear();
+        for (count = 0; count < tablemodelRule.getRowCount(); count++) {
+            //System.out.println(tablemodelRule.getRowCount());
+            RuleNameSet4.add(tablemodelRule.getValueAt(count, 1).toString());
+            RuleStatus4.add(tablemodelRule.getValueAt(count, 10).toString());
+        }
+        jTextArea4.setText("");
+        for (int m = 0; m < RuleStatus4.size(); m++) {
+            if (RuleStatus4.get(m).trim().equals("Active")) {
+                jTextArea4.append("Rule: " + RuleNameSet4.get(m).trim() + " ==> Status: Active" + "\n");
             }
         }
+        jTextArea2.append(timeStamp2 + " ---> Rule: " + ruleName + " ==> Status: Active" + "\n");
+
         saveToRuleTxt();
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -2220,14 +2220,10 @@ public class Home extends javax.swing.JFrame {
         // String port = jComboBox6.getSelectedItem().toString();
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(packetTableModel);
         tabledisplay.setRowSorter(sorter);
-        if (ipAdd.trim().length() == 0) {
+        if (ipAdd.trim().length() == 0 || proto.trim().length() == 0) {
             sorter.setRowFilter(null);
         } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + ipAdd));
-        }
-        if (proto.trim().length() == 0) {
-            sorter.setRowFilter(null);
-        } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + proto));
         }
     }//GEN-LAST:event_FilterPacketsMouseClicked
@@ -2316,10 +2312,11 @@ public class Home extends javax.swing.JFrame {
         public void receivePacket(Packet packet) {
 
             try {
+                String timeStamp3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 Vector r = new Vector();
                 No++;
-                    r.addElement(No);
-                    r.addElement(timeStamp.toString());
+                r.addElement(No);
+                r.addElement(timeStamp3.toString());
                 if (packet instanceof TCPPacket) {
                     tcp = (TCPPacket) packet;
                     r.addElement(tcp.src_ip.toString());
@@ -2374,6 +2371,7 @@ public class Home extends javax.swing.JFrame {
                 }
                 AllIPSet.addAll(srcIPSet);
                 AllIPSet.addAll(destIPSet);
+
                 UnknownIPSet.addAll(srcIPSet);
                 destIPSet.stream().filter((element) -> (!UnknownIPSet.contains(element))).forEachOrdered((element) -> {
                     UnknownIPSet.add(element);
@@ -2401,12 +2399,15 @@ public class Home extends javax.swing.JFrame {
                     srcPortSet.add((String) r.elementAt(5));
                     destPortSet.add((String) r.elementAt(6));
                 }
+                System.out.println(srcPortSet);
+                System.out.println(destPortSet);
                 AllPortSet.addAll(srcPortSet);
                 for (String element : destPortSet) {
                     if (!AllPortSet.contains(element)) {
                         AllPortSet.add(element);
                     }
                 }
+                System.out.println(AllPortSet);
                 for (int j = 0; j < AllPortSet.size(); j++) {
                     if (((DefaultComboBoxModel) jComboBox6.getModel()).getIndexOf(AllPortSet.get(j)) == -1) {
                         jComboBox6.addItem(AllPortSet.get(j));
@@ -2416,19 +2417,24 @@ public class Home extends javax.swing.JFrame {
             } catch (Exception e) {
 
             }
+         
             int size2 = srcIPSetTemp.size();
             int size3 = RuleStatus.size();
-
+            String timeStamp4 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             for (int m = 0; m < size3; m++) {
+                
                 if (RuleStatus.get(m).trim().equals("Active")) {
                     //System.out.println(m);
+                    
                     for (int j = 0; j < size2; j++) {
+
                         if (RuleIPSet.get(m).trim().equals(srcIPSetTemp.get(j).trim())) {
                             System.out.println("true");
                             IPCounter++;
                             if (IPCounter <= Integer.parseInt((RuleAttempts.get(m).trim()))) {
-                                jTextArea2.append(timeStamp + " ---> " + RuleIPSet.get(m).trim() + " is detected in the network traffic, Times: " + IPCounter + "\n");
-                                //jTextArea3.append(timeStamp + " : " + RuleIPSet.get(m).trim() + " is detected: "+ IPCounter + "\n");
+                                jTextArea2.append(timeStamp4 + " ---> " + RuleIPSet.get(m).trim() + " is detected in the network traffic, Times: " + IPCounter + "\n");
+                                //jTextArea3.append(timeStamp3 + " : " + RuleIPSet.get(m).trim() + " is detected: "+ IPCounter + "\n");
+                                
                             } else {
                                 String command = "netsh advfirewall firewall add rule name="
                                         + RuleNameSet.get(m).trim() + " Dir=Out Action=Block RemoteIP=" + RuleIPSetCompare.get(m).trim();
@@ -2441,13 +2447,13 @@ public class Home extends javax.swing.JFrame {
                                     Object val = model.getValueAt(row, col);
                                     model.setValueAt("Implemented", row, col);
                                     saveToRuleTxt();
-                                    jTextArea1.append(timeStamp + " ---> Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
-                                    //jTextArea3.append(timeStamp + " : " + RuleIPSet.get(m).trim() + " is added into the block list\n");
-                                    jTextArea1.append(timeStamp + " ---> " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
-                                    jTextArea3.append(timeStamp + "\n" + "Rule: " + RuleNameSet.get(m).trim() + " " + RuleIPSet.get(m).trim() + ":Blocked" + "\n");
+                                    jTextArea1.append(timeStamp4 + " ---> Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
+                                    //jTextArea3.append(timeStamp3 + " : " + RuleIPSet.get(m).trim() + " is added into the block list\n");
+                                    jTextArea1.append(timeStamp4 + " ---> " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
+                                    jTextArea3.append(timeStamp4 + "\n" + "Rule: " + RuleNameSet.get(m).trim() + " " + RuleIPSet.get(m).trim() + ":Blocked" + "\n");
                                     jTextArea3.append("--------------------------------------------");
-                                    jTextArea2.append(timeStamp + " ---> Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
-                                    jTextArea2.append(timeStamp + " ---> " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
+                                    jTextArea2.append(timeStamp4 + " ---> Rule Name: " + RuleNameSet.get(m).trim() + " is added into the Firewall\n");
+                                    jTextArea2.append(timeStamp4 + " ---> " + RuleIPSet.get(m).trim() + " is added into the firewall. status: Blocked" + "\n");
                                     javax.swing.JOptionPane.showMessageDialog(null,
                                             "A suspicous attemp has been blocked\n"
                                             + "\nSuspicous IP Address: " + RuleIPSetCompare.get(m).trim()
@@ -2497,19 +2503,19 @@ public class Home extends javax.swing.JFrame {
         }
 
         private void SendAlert(int m) throws AddressException, MessagingException {
-            String timeStamp = new SimpleDateFormat("dd/MM/yyyy    HH:mm:ss").format(Calendar.getInstance().getTime());
+            String timeStamp5 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
             // Step1
             System.out.println("\n 1st ===> Setup Mail Server Properties..");
-            jTextArea2.append("\n 1st ===> Setup Mail Server Properties..");
+            jTextArea2.append(timeStamp5 + " ---> " + "1st ===> Setup Mail Server Properties..\n");
             mailServerProperties = System.getProperties();
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
             mailServerProperties.put("mail.smtp.starttls.enable", "true");
             System.out.println("Mail Server Properties have been setup successfully..");
-            jTextArea2.append("Mail Server Properties have been setup successfully..");
+            jTextArea2.append(timeStamp5 + " ---> " + "Mail Server Properties have been setup successfully..\n");
             // Step2
             System.out.println("\n\n 2nd ===> get Mail Session..");
-            jTextArea2.append("\n\n 2nd ===> get Mail Session..");
+            jTextArea2.append(timeStamp5 + " ---> " + " 2nd ===> get Mail Session..\n");
             getMailSession = Session.getDefaultInstance(mailServerProperties, null);
             generateMailMessage = new MimeMessage(getMailSession);
             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(jTextField9.getText().trim()));
@@ -2531,7 +2537,7 @@ public class Home extends javax.swing.JFrame {
                     + "<br>"
                     + "<br>Triggerred by Rule: " + RuleNameSet.get(m).trim()
                     + "<br>Current Status: Implemented"
-                    + "<br>Time: " + timeStamp
+                    + "<br>Time: " + timeStamp5
                     + "<br>"
                     + "<hr>"
                     + "<br> Regards, "
@@ -2541,10 +2547,10 @@ public class Home extends javax.swing.JFrame {
             generateMailMessage.setContent(emailBody, "text/html");
 
             System.out.println("Mail Session has been created successfully..");
-            jTextArea2.append("Mail Session has been created successfully..");
+            jTextArea2.append(timeStamp5 + " ---> " + "Mail Session has been created successfully..\n");
             // Step3
             System.out.println("\n\n 3rd ===> Get Session and Send mail");
-            jTextArea2.append("Mail Session has been created successfully..");
+            jTextArea2.append(timeStamp5 + " ---> " + "Get Session and sening email..\n");
             Transport transport = getMailSession.getTransport("smtp");
 
             // Enter your correct gmail UserID and Password
@@ -2552,7 +2558,7 @@ public class Home extends javax.swing.JFrame {
             transport.connect("smtp.gmail.com", "cit.intrusiondetection@gmail.com", "gvrzqqsbztichsoh");
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
-            jTextArea2.append("Email has been sent out..");
+            jTextArea2.append(timeStamp5 + " ---> " + "Email has been sent out..\n");
         }
     };
 

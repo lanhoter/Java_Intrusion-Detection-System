@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -100,6 +102,7 @@ public class Login extends JFrame {
                 xy = e.getY();
             }
         });
+
         label.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent arg0) {
@@ -125,8 +128,8 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBackground(new Color(241, 57, 83));
         button.setBounds(395, 390, 283, 36);
-        contentPane.add(button);
 
+        contentPane.add(button);
         textField = new JTextField();
         textField.setBounds(395, 200, 283, 36);
         textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -166,5 +169,18 @@ public class Login extends JFrame {
         lbl_close.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lbl_close.setBounds(691, 0, 37, 27);
         contentPane.add(lbl_close);
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String userName = textField.getText().toString().trim();
+                String passwd = String.valueOf(passwordField.getPassword());
+                if (userName.equals("admin") && passwd.equals("admin")) {
+                    System.out.println("success");
+                    new Home().setVisible(true);
+                    Login.this.setVisible(false);
+                }
+            }
+        });
     }
+
 }

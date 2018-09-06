@@ -6,4 +6,15 @@ Jpcap to capture packets<br />
 
 <h3>System Design</h3> <br />
 
-![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/Design/Home.jpg)
+![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/Design/Home.jpg)<br />
+
+
+<h3>System Implementation</h3> <br />
+
+![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/login.PNG)<br />
+
+![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/Home.PNG)<br />
+
+![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/IDS.PNG)<br />
+
+![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/ruleConfiguration.PNG)<br />

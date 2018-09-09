@@ -20,3 +20,6 @@ Jpcap to capture packets<br />
 ![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/IDS.PNG)<br />
 
 ![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/ruleConfiguration.PNG)<br />
+
+
+![image](https://github.com/lanhoter/Java_Intrusion-Detection-System/blob/master/FYPProjects_SEMIFinal/Images/System%20Screenshots/Email%20Notification.PNG)<br />

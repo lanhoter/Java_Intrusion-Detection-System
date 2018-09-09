@@ -117,12 +117,6 @@ public class Login extends JFrame {
         label.setIcon(new ImageIcon(Login.class.getResource("/GUI/images/CIT_red.jpg")));
         panel.add(label);
 
-//		JLabel lblWeGotYou = new JLabel("Aaaaaaa");
-//		lblWeGotYou.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblWeGotYou.setForeground(new Color(240, 248, 255));
-//		lblWeGotYou.setFont(new Font("Tahoma", Font.PLAIN, 20));
-//		lblWeGotYou.setBounds(111, 360, 141, 27);
-//		panel.add(lblWeGotYou);
         Button button = new Button("Login");
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
